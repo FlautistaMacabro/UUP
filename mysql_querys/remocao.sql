@@ -30,6 +30,7 @@ DROP PROCEDURE IF EXISTS `atualizarFrequenciaPorNomes`;
 DROP PROCEDURE IF EXISTS `atualizarNota`;
 DROP PROCEDURE IF EXISTS `atualizarSenhaAluno`;
 DROP PROCEDURE IF EXISTS `atualizarSenhaProf`;
+DROP PROCEDURE IF EXISTS `atualizarSenhaADM`;
 DROP PROCEDURE IF EXISTS `atualizar_ano`;
 DROP PROCEDURE IF EXISTS `deletaAlunoPorNome`;
 DROP PROCEDURE IF EXISTS `deletaAulaPorID`;

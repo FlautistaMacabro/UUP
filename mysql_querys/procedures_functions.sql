@@ -644,10 +644,16 @@ BEGIN
     UPDATE aluno SET senha = senhaDada WHERE nome = nomeDado;
 END$$
 
--- PROCEDURE para ATUALIZAR senha de professor
+-- PROCEDURE para ATUALIZAR senha de professor e coordenador
 CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaProf (nomeDado varchar(100), senhaDada varchar(80))
 BEGIN
     UPDATE professor SET senha = senhaDada WHERE nome = nomeDado;
+END$$
+
+-- PROCEDURE para ATUALIZAR senha de administrador
+CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaADM (nomeDado varchar(100), senhaDada varchar(80))
+BEGIN
+    UPDATE administrador SET senha = senhaDada WHERE nome = nomeDado;
 END$$
 
 -- PROCEDURE para ATUALIZAR curso que um Coordenador coordena
