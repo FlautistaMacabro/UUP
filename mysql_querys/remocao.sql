@@ -13,6 +13,8 @@ DROP FUNCTION IF EXISTS `abrirRematricula`;
 DROP FUNCTION IF EXISTS `fecharSemestre`;
 DROP FUNCTION IF EXISTS `fecharDiscAnualPorAno_Prof_NomeDisc`;
 DROP FUNCTION IF EXISTS `fecharRematricula`;
+DROP FUNCTION IF EXISTS `novoEmailAluno`;
+DROP FUNCTION IF EXISTS `novoEmailProf`;
 DROP FUNCTION IF EXISTS `atualizarCargoCoord`;
 DROP FUNCTION IF EXISTS `removerCargoCoord`;
 
