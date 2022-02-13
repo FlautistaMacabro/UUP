@@ -47,3 +47,25 @@ $router->get('/admin/users', [
         return new Response(200, Admin\Users::getUsers());
     }
 ]);
+
+//ROTA ADMIN ALTERAR SENHA (GET)
+$router->get('/admin/password', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-admin-permission'
+    ],
+    function(){
+        return new Response(200, Admin\AlterarSenha::getAlterarSenha());
+    }
+]);
+
+//ROTA ADMIN ALTERAR SENHA (POST)
+$router->post('/admin/password', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-admin-permission'
+    ],
+    function($request){
+        return new Response(200, Admin\AlterarSenha::setNewPassword($request));
+    }
+]);
