@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+//Custom-Colors
+$purple: hsl(271, 100%, 71%);
+$purple-invert: findColorInvert($purple);
+$purple-dark: findDarkColor($purple);
+$custom-colors: ("purple": ($purple, $purple-invert, $purple-dark));
+$menu-item-hover-color:  $purple;
+$menu-item-active-background-color: $purple;
+
+
+@import "../bulma/node_modules/bulma/bulma.sass";
