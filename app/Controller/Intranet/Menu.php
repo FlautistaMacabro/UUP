@@ -24,6 +24,12 @@ class Menu{
                 'link' => '/admin/users'
             ]
         ],
+        'CONTA' => [
+            [
+                'label' => 'Alterar Senha',
+                'link' => '/admin/password'
+            ]
+        ]
     ];
 
     //Método responsável por retornar o Menu do Admin

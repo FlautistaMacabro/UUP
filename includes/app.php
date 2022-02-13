@@ -26,7 +26,10 @@ View::init([
 MiddlewareQueue::setMap([
     'maintenance' => App\Core\Middleware\Maintenance::class,
     'require-intranet-logout' => App\Core\Middleware\RequireIntranetLogout::class,
-    'require-intranet-login' => App\Core\Middleware\RequireIntranetLogin::class
+    'require-intranet-login' => App\Core\Middleware\RequireIntranetLogin::class,
+    'require-admin-permission' => App\Core\Middleware\RequireAdminPermission::class,
+    'require-coord-permission' => App\Core\Middleware\RequireCoordPermission::class,
+    'require-professor-permission' => App\Core\Middleware\RequireProfessorPermission::class
 ]);
 
 //Define o mapeamento de middlewares padrões (executados em todas as rotas)
