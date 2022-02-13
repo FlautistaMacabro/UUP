@@ -5,13 +5,13 @@ namespace App\Controller\Intranet\Admin;
 use App\Controller\Page\PageBuilder;
 use App\Controller\Intranet\Menu;
 use App\Controller\Page\Alert;
-use App\Model\Entity\Admin;
+use App\Model\Entity\Pessoa;
 
 class AlterarSenha{
     public function __construct() {}
 
     //Método responsável por retornar a página de Alterar Senha
-    public static function getAlterarSenha($sucessMessage = null)
+    public static function getAlterarSenha($tipoMsg = null, $message = null)
     {
         //Componentes do AlterarSenha
 
@@ -26,8 +26,11 @@ class AlterarSenha{
             'items' => PageBuilder::getMenu(Menu::getAdmMenu(), 'Alterar Senha')
         ]);
 
-        //Sucess message
-        $status = !is_null($sucessMessage) ? Alert::getSuccess($sucessMessage) : '';
+        $status = '';
+
+        //Menssage
+        if($tipoMsg != null && $message != null)
+            $tipoMsg == 1 ? $status = Alert::getSuccess($message) : $status = Alert::getError($message);
 
         // Content
         $content = PageBuilder::getComponent("pages/admin/alterarSenha", [
@@ -46,12 +49,13 @@ class AlterarSenha{
     public static function setNewPassword($request){
         //POST VARS
         $postVars = $request->getPostVars();
-        $senha = $postVars['password'] ?? '';
+        $senhaAtual = $postVars['password'] ?? '';
+        $senhaNova = $postVars['newpassword'] ?? '';
         $nome = $_SESSION['admin']['usuario']['name'];
 
-        Admin::setNewPassword($nome, $senha);
+        $retornoAlteracao = (Pessoa::setNewPasswordADM($nome,$senhaAtual,$senhaNova))[0];
 
-        self::getAlterarSenha("Senha alterada com sucesso!");
+        self::getAlterarSenha($retornoAlteracao->tipo, $retornoAlteracao->msg);
     }
     
 }
