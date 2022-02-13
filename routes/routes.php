@@ -14,3 +14,6 @@ include __DIR__.'/intranet/coordenador.php';
 
 //INCLUI AS ROTAS DE ALUNO
 include __DIR__.'/public/pages.php';
+
+//ERRORS
+include __DIR__.'/errors.php';

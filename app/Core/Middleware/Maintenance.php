@@ -2,6 +2,7 @@
 
 namespace App\Core\Middleware;
 
+use App\Controller\Page\PageBuilder;
 use \Exception;
 
 class Maintenance{
@@ -10,12 +11,12 @@ class Maintenance{
     public function handle($request, $next){
         //Verifica o estado de manutenção da página
         if($_ENV['MAINTENANCE'] == 'true'){
-            throw new Exception("Página em manutenção. Tente novamente mais tarde", 200); 
+            throw new Exception(PageBuilder::getComponent("pages/errors/maintenance"), 200);
         }
-       
+
         //Executa o próximo nível do middleware
         return $next($request);
-       
+
     }
 
 }

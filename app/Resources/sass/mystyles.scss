@@ -7,6 +7,7 @@ $purple-dark: findDarkColor($purple);
 $custom-colors: ("purple": ($purple, $purple-invert, $purple-dark));
 $menu-item-hover-color:  $purple;
 $menu-item-active-background-color: $purple;
+$input-placeholder-color: rgb(94, 94, 94);
 
 
 @import "../bulma/node_modules/bulma/bulma.sass";

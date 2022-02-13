@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Core\Middleware\Queue as MiddlewareQueue;
+use App\Controller\Page\PageBuilder;
 use \Closure;
 use \Exception;
 use \ReflectionFunction;
@@ -27,7 +28,7 @@ class Router{
         $this->url = $url;
         $this->setPrefix();
     }
-    
+
     //Método que define o prefixo das rotas
     private function setPrefix(){
         //Informações da URL atual
@@ -58,16 +59,16 @@ class Router{
         $patternVariable = '/{(.*?)}/';
         if(preg_match_all($patternVariable,$route,$matches)){
               $route = preg_replace($patternVariable, '(.*?)',$route);
-              $params['variables'] = $matches[1]; 
+              $params['variables'] = $matches[1];
         }
-       
-        
+
+
         //Padrão de validação da URL
         $patternRoute = '/^'.str_replace('/','\/',$route).'$/';
 
         //Adiciona rota dentro da classe
         $this->routes[$patternRoute][$method] = $params;
-        
+
     }
 
      //Retorna a URI desconsiderando o prefixo
@@ -99,8 +100,8 @@ class Router{
                     //Removo a primeira posição
                     unset($matches[0]);
 
-                    //Variáveis processadas 
-                    $keys = $methods[$httpMethod]['variables'];           
+                    //Variáveis processadas
+                    $keys = $methods[$httpMethod]['variables'];
                     $methods[$httpMethod]['variables'] = array_combine($keys,$matches);
                     $methods[$httpMethod]['variables']['request'] = $this->request;
 
@@ -110,12 +111,12 @@ class Router{
 
                 //Método não permitido
                 throw new Exception("Método não é permitido", 405);
-                
+
             }
        }
 
        //URL não encontrada
-       throw new Exception("URL não encontrada", 404);
+       throw new Exception(PageBuilder::getComponent("pages/errors/error_404"), 404);
 
 
     }
@@ -123,7 +124,7 @@ class Router{
     //Método responsável por executar a rota atual
     public function run(){
         try {
-            
+
             //Obtém a rota atual
             $route = $this->getRoute();
 
@@ -142,7 +143,7 @@ class Router{
                   $name = $parameter->getName();
                   $args[$name] = $route['variables'][$name] ?? '';
             }
-            
+
             //Retorna a execução da fila de middlewares
             return (new MiddlewareQueue($route['middlewares'],$route['controller'],$args))->next($this->request);
         } catch (Exception $e) {

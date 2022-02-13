@@ -1,5 +1,5 @@
 #Não permitir indexação do google
-Options -Indexes 
+Options -Indexes
 
 #Arquivos bloqueados no site
 <FilesMatch "\.(html|php|env|sql)$">
@@ -13,6 +13,9 @@ Options -Indexes
     Allow from all
 </FilesMatch>
 
+#Erro 403
+ErrorDocument 403 http://%{SERVER_NAME}/UUP/error/403
+
 #Liga o Rewrite
 RewriteEngine On
 
@@ -20,3 +23,4 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php [QSA,NC]
+
