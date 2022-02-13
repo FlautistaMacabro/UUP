@@ -1,0 +1,31 @@
+<div class="column is-auto p-6">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="{{URL}}/admin/password">Conta</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Alterar Senha</a></li>
+      </ul>
+    </nav>
+    <h2 class="title is-2 has-text-centered has-text-grey">
+        Alteração de Senha
+    </h2>
+    <form method="post">
+        {{status}}
+        <div class="field">
+          <label class="label pl-6">Senha Atual</label>
+          <div class="control mt-3 is-flex is-flex-direction-row is-justify-content-center">
+            <input class="input" name="password" type="password" placeholder="Confirme sua senha atual aqui..." style="width: 90%;">
+          </div>
+        </div>
+        <div class="field mt-5">
+            <label class="label pl-6">Nova Senha</label>
+            <div class="control mt-3 is-flex is-flex-direction-row is-justify-content-center">
+              <input class="input" name="newpassword" type="password" placeholder="Digite sua nova senha aqui..." style="width: 90%;">
+            </div>
+        </div>
+        <div class="field mt-5">
+            <div class="control is-flex is-flex-direction-row is-justify-content-center">
+                <button class="button is-link is-purple has-text-weight-bold">Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>
