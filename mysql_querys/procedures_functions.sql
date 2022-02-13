@@ -709,21 +709,54 @@ END$$
 -- Atualizar senhas
 
 -- PROCEDURE para ATUALIZAR senha de aluno
-CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaAluno (nomeDado varchar(100), senhaDada varchar(80))
+CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaAluno (nomeDado varchar(100), senhaAtual varchar(80), senhaNova varchar(80), OUT retorno tinyint, OUT mensagem varchar(100))
 BEGIN
-    UPDATE aluno SET senha = MD5(senhaDada) WHERE nome = nomeDado;
+    DECLARE idUser int DEFAULT 0;
+
+    SELECT id_aluno INTO idUser FROM aluno WHERE nome = nomeDado AND senha = MD5(senhaAtual);
+
+    IF idUser != 0 THEN
+        UPDATE aluno SET senha = MD5(senhaNova) WHERE id_aluno = idUser;
+        SET retorno = 1;
+        SET mensagem = 'Senha alterada com sucesso';
+    ELSE
+        SET retorno = 0;
+        SET mensagem = 'Senha atual digitada incorreta';
+    END IF;
 END$$
 
 -- PROCEDURE para ATUALIZAR senha de professor e coordenador
-CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaProf (nomeDado varchar(100), senhaDada varchar(80))
+CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaProf (nomeDado varchar(100), senhaAtual varchar(80), senhaNova varchar(80), OUT retorno tinyint, OUT mensagem varchar(100))
 BEGIN
-    UPDATE professor SET senha = MD5(senhaDada) WHERE nome = nomeDado;
+    DECLARE idUser int DEFAULT 0;
+
+    SELECT id_prof INTO idUser FROM professor WHERE nome = nomeDado AND senha = MD5(senhaAtual);
+
+    IF idUser != 0 THEN
+        UPDATE professor SET senha = MD5(senhaNova) WHERE id_prof = idUser;
+        SET retorno = 1;
+        SET mensagem = 'Senha alterada com sucesso';
+    ELSE
+        SET retorno = 0;
+        SET mensagem = 'Senha atual digitada incorreta';
+    END IF;
 END$$
 
 -- PROCEDURE para ATUALIZAR senha de administrador
-CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaADM (nomeDado varchar(100), senhaDada varchar(80))
+CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarSenhaADM (nomeDado varchar(100), senhaAtual varchar(80), senhaNova varchar(80), OUT retorno tinyint, OUT mensagem varchar(100))
 BEGIN
-    UPDATE administrador SET senha = MD5(senhaDada) WHERE nome = nomeDado;
+    DECLARE idUser int DEFAULT 0;
+
+    SELECT id_adm INTO idUser FROM administrador WHERE nome = nomeDado AND senha = MD5(senhaAtual);
+
+    IF idUser != 0 THEN
+        UPDATE administrador SET senha = MD5(senhaNova) WHERE id_adm = idUser;
+        SET retorno = 1;
+        SET mensagem = 'Senha alterada com sucesso';
+    ELSE
+        SET retorno = 0;
+        SET mensagem = 'Senha atual digitada incorreta';
+    END IF;
 END$$
 
 -- PROCEDURE para ATUALIZAR curso que um Coordenador coordena
