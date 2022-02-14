@@ -33,16 +33,16 @@ class AlterarSenha{
             $tipoMsg == 1 ? $status = Alert::getSuccess($message) : $status = Alert::getError($message);
 
         // Content
-        /*$content = PageBuilder::getComponent("pages/coord/alterarSenha", [
+        $content = PageBuilder::getComponent("pages/professor/alterarSenha", [
             'status' => $status
-        ]);*/
+        ]);
 
         //Recebe o Template e o Imprime na Tela
         echo PageBuilder::getTemplate('templates/intranet/template_intranet',[
             'title' => 'Alterar Senha - Professor',
             'header' => $header,
             'menu' => $menu,
-            'content' => ''
+            'content' => $content
         ]);
 
         exit;
@@ -55,7 +55,7 @@ class AlterarSenha{
         $senhaNova = $postVars['newpassword'] ?? '';
         $nome = $_SESSION['admin']['usuario']['name'];
 
-        $retornoAlteracao = (Pessoa::setNewPasswordADM($nome,$senhaAtual,$senhaNova))[0];
+        $retornoAlteracao = (Pessoa::setNewPasswordProf($nome,$senhaAtual,$senhaNova))[0];
 
         self::getAlterarSenha($retornoAlteracao->tipo, $retornoAlteracao->msg);
     }
