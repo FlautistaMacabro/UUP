@@ -231,10 +231,10 @@ insert into avaliacao (nome,id_aula) values ('P2',8);
 
 -- Nota da avaliação
 insert into nota (nota,id_aval,id_dados) values (7,1,1);
-insert into nota (nota,id_aval,id_dados) values (7.5,2,1);
 insert into nota (nota,id_aval,id_dados) values (6,3,3);
-insert into nota (nota,id_aval,id_dados) values (5,1,2);
 insert into nota (nota,id_aval,id_dados) values (4.5,4,4);
+insert into nota (nota,id_aval,id_dados) values (3,4,5);
+insert into nota (nota,id_aval,id_dados) values (8,5,1);
 
 -- Frequência da aula 
 insert into frequencia (id_dados,id_aula,faltou_) values (1,1,0);
