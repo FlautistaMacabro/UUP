@@ -43,7 +43,7 @@ class Cursos{
 
       //Menu
       $menu = PageBuilder::getComponent("pages/intranet/menu", [
-        'items' => PageBuilder::getMenu(Menu::getAdmMenu(), 'Cursos')
+        'items' => PageBuilder::getMenu(Menu::getAdmMenu(), 'Gerenciar Cursos')
         ]);
 
       //Content

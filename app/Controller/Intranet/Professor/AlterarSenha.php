@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Intranet\Admin;
+namespace App\Controller\Intranet\Professor;
 
 use App\Controller\Page\PageBuilder;
 use App\Controller\Intranet\Menu;
@@ -18,12 +18,12 @@ class AlterarSenha{
         //Header
         $header = PageBuilder::getComponent("pages/intranet/header", [
             'nome' => $_SESSION['admin']['usuario']['name'],
-            'cargo' => 'Administrador'
+            'cargo' => 'Professor'
         ]);
 
         //Menu
         $menu = PageBuilder::getComponent("pages/intranet/menu", [
-            'items' => PageBuilder::getMenu(Menu::getAdmMenu(), 'Alterar Senha')
+            'items' => PageBuilder::getMenu(Menu::getProfessorMenu(), 'Alterar Senha')
         ]);
 
         $status = '';
@@ -33,17 +33,19 @@ class AlterarSenha{
             $tipoMsg == 1 ? $status = Alert::getSuccess($message) : $status = Alert::getError($message);
 
         // Content
-        $content = PageBuilder::getComponent("pages/admin/alterarSenha", [
+        /*$content = PageBuilder::getComponent("pages/coord/alterarSenha", [
             'status' => $status
-        ]);
+        ]);*/
 
         //Recebe o Template e o Imprime na Tela
         echo PageBuilder::getTemplate('templates/intranet/template_intranet',[
-            'title' => 'Alterar Senha - Adm',
+            'title' => 'Alterar Senha - Professor',
             'header' => $header,
             'menu' => $menu,
-            'content' => $content
+            'content' => ''
         ]);
+
+        exit;
     }
 
     public static function setNewPassword($request){
