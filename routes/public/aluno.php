@@ -1,7 +1,7 @@
 <?php
 
 use App\Core\Response;
-use App\Controller\Public;
+use App\Controller\Public\Aluno;
 
 //ROTA HOME (GET)
 $router->get('/', [
@@ -9,16 +9,29 @@ $router->get('/', [
     'require-login'
 ],
     function(){
-        return new Response(200, Public\Home::getHome());
+        return new Response(200, Aluno\Home::getHome());
     }
 ]);
 
-// //ROTA LOGIN (GET)
-// $router->get('/login', [
-//     function(){
-//         return new Response(200, Public\Login::getLogin());
-//     }
-// ]);
+// ROTA ALTERAR SENHA (GET)
+$router->get('/password', [
+'middlewares' => [
+    'require-login'
+],
+    function(){
+        return new Response(200, Aluno\AlterarSenha::getAlterarSenha());
+    }
+]);
+
+// ROTA ALTERAR SENHA (POST)
+$router->post('/password', [
+'middlewares' => [
+    'require-login'
+],
+    function($request){
+        return new Response(200, Aluno\AlterarSenha::setNewPassword($request));
+    }
+]);
 
 
 //ROTA DINÂMICA
