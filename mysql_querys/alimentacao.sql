@@ -865,7 +865,7 @@ END$$
 -- LOGIN
 
 -- PROCEDURE para verificar o login de Aluno
-CREATE DEFINER=`root`@`localhost` PROCEDURE verificaLoginAluno (emailDado varchar(100), senhaDada varchar(80), OUT retorno tinyint, OUT id int, OUT nome_aluno varchar(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE verificaLoginAluno (emailDado varchar(100), senhaDada varchar(80), OUT retorno tinyint, OUT id int, OUT nome_aluno varchar(100), OUT nome_curso varchar(100))
 BEGIN
 	DECLARE idAux int;
     DECLARE idAux2 int;
@@ -878,19 +878,34 @@ BEGIN
         SELECT id_aluno INTO idAux2 FROM aluno WHERE id_aluno = idAux AND senha = MD5(senhaDada);
         IF idAux2 IS NOT NULL THEN
             -- Apresentar algo como: Login realizado com sucesso.
+
             -- Adquirindo o nome do Aluno
             SELECT nome INTO nome_aluno FROM aluno WHERE id_aluno = idAux;
+
+            -- Adquirindo o nome do Curso que o aluno está matriculado
+            SELECT c.nome INTO nome_curso
+                FROM curso as c
+                    INNER JOIN disciplinaBase as db
+                    ON db.id_curso = c.id_curso
+                        INNER JOIN disciplinaAnual as dl
+                        ON db.id_discBase = dl.id_discBase
+                            INNER JOIN dados_aluno as da
+                            ON dl.id_discAnual = da.id_discAnual
+                WHERE da.id_aluno = idAux
+                LIMIT 1;
         ELSE
             -- Apresentar algo como: Senha incorreta.
             SET retorno = 0;
             SET id = 0;
             SET nome_aluno = 'Senha incorreta';
+            SET nome_curso = '';
         END IF;
     ELSE
         -- Apresentar algo como: O Email não está cadastrado no banco.
         SET retorno = 0;
         SET id = 0;
         SET nome_aluno = 'Email ou senha incorretos';
+        SET nome_curso = '';
     END IF;
 END$$
 
