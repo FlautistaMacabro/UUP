@@ -14,7 +14,7 @@ class Login{
     //Método responsável por retornar o conteúdo (view) do nosso login
     public static function getLogin($request, $errorMessage = null)
     {
-         //Componentes da Home
+         //Componentes do Login
 
          //Error message
          $status = !is_null($errorMessage) ? Alert::getError($errorMessage) : '';
