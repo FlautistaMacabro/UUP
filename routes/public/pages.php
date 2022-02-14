@@ -3,10 +3,17 @@
 use App\Core\Response;
 use App\Controller\Public;
 
-//ROTA HOME
+//ROTA HOME (GET)
 $router->get('/', [
     function(){
         return new Response(200, Public\Home::getHome());
+    }
+]);
+
+//ROTA LOGIN (GET)
+$router->get('/login', [
+    function(){
+        return new Response(200, Public\Login::getLogin());
     }
 ]);
 

@@ -20,6 +20,8 @@ class Home{
             'title' => 'Home',
             'content' => $content
           ]);
+
+        exit;
     }
 
 }
