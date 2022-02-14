@@ -66,7 +66,7 @@ $router->post('/coord/password', [
         'require-intranet-login',
         'require-coord-permission'
     ],
-    function(){
-        return new Response(200, "");
+    function($request){
+        return new Response(200, Coord\AlterarSenha::setNewPassword($request));
     }
 ]);

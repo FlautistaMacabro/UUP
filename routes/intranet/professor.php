@@ -44,7 +44,7 @@ $router->post('/professor/password', [
         'require-intranet-login',
         'require-professor-permission'
     ],
-    function(){
-        return new Response(200, "");
+    function($request){
+        return new Response(200, Professor\AlterarSenha::setNewPassword($request));
     }
 ]);
