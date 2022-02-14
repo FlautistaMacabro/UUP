@@ -3,6 +3,8 @@
 namespace App\Controller\Public;
 
 use App\Controller\Page\PageBuilder;
+use App\Model\Session\Login as LoginUsuario;
+use App\Session\Public\Login as SessionLogin;
 use App\Controller\Page\Alert;
 
 class Login{
@@ -27,6 +29,35 @@ class Login{
           ]);
 
         exit;
+    }
+
+    public static function authentication($request)
+    {
+        //POST VARS
+        $postVars = $request->getPostVars();
+        $email = $postVars['email'] ? $postVars['email'] . '@uup.br' : '';
+        $senha = $postVars['password'] ?? '';
+
+        //Validação do Login
+        $loginStatus = (LoginUsuario::loginAluno($email,$senha))[0];
+
+        //Error
+        if($loginStatus->type == 0){return self::getLogin($loginStatus->name);}
+
+        //Cria a sessão de login
+        SessionLogin::login($loginStatus->id, $loginStatus->name);
+
+        //Redireciona o usuário para a tela apropriada
+        $request->getRouter()->redirect('/');
+    }
+
+    //Método responsável por deslogar o usuário
+    public static function logout($request){
+      //Destrói a sessão de login
+      SessionLogin::logout();
+
+      //Redireciona o usuário para o login
+      $request->getRouter()->redirect('/login');
     }
 
 }

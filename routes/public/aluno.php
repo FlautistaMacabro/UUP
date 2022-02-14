@@ -5,17 +5,20 @@ use App\Controller\Public;
 
 //ROTA HOME (GET)
 $router->get('/', [
+'middlewares' => [
+    'require-login'
+],
     function(){
         return new Response(200, Public\Home::getHome());
     }
 ]);
 
-//ROTA LOGIN (GET)
-$router->get('/login', [
-    function(){
-        return new Response(200, Public\Login::getLogin());
-    }
-]);
+// //ROTA LOGIN (GET)
+// $router->get('/login', [
+//     function(){
+//         return new Response(200, Public\Login::getLogin());
+//     }
+// ]);
 
 
 //ROTA DINÂMICA
