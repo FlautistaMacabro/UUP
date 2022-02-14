@@ -2,6 +2,7 @@
 
 //INCLUI AS ROTAS DE LOGIN
 include __DIR__.'/intranet/login.php';
+include __DIR__.'/public/login.php';
 
 //INCLUI AS ROTAS DE ADMINISTRADOR
 include __DIR__.'/intranet/administrador.php';
@@ -13,7 +14,7 @@ include __DIR__.'/intranet/professor.php';
 include __DIR__.'/intranet/coordenador.php';
 
 //INCLUI AS ROTAS DE ALUNO
-include __DIR__.'/public/pages.php';
+include __DIR__.'/public/aluno.php';
 
 //ERRORS
 include __DIR__.'/errors.php';

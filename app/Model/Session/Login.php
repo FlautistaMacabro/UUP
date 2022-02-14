@@ -21,6 +21,13 @@ class Login{
         return (($database->execute('SELECT @tipo as type,@id as id,@nome_user as name;'))->fetchAll(PDO::FETCH_CLASS,self::class));
     }
 
+    public static function loginAluno($email,$senha){
+        $query = "CALL verificaLoginAluno('{$email}','{$senha}',@retorno,@id,@nome_user);";
+        $database = new Database();
+        $database->execute($query);
+        return (($database->execute('SELECT @retorno as type,@id as id,@nome_user as name;'))->fetchAll(PDO::FETCH_CLASS,self::class));
+    }
+
 }
 
 
