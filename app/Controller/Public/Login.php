@@ -45,7 +45,7 @@ class Login{
         if($loginStatus->type == 0){return self::getLogin($loginStatus->name);}
 
         //Cria a sessão de login
-        SessionLogin::login($loginStatus->id, $loginStatus->name);
+        SessionLogin::login($loginStatus->id, $loginStatus->name, $loginStatus->curso);
 
         //Redireciona o usuário para a tela apropriada
         $request->getRouter()->redirect('/');

@@ -1,0 +1,40 @@
+<div class="column is-auto p-6" style="overflow-wrap: break-word;">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="{{URL}}/">Geral</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Frequências e Notas</a></li>
+      </ul>
+    </nav>
+    <form method="post">
+      <div class="select">
+        <select name="semestre">
+          <option>Semestre</option>
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </div>
+      <div class="select">
+        <select name="ano">
+          <option>Ano</option>
+          {{anos}}
+        </select>
+      </div>
+      <button class="button is-info is-outlined">Aplicar</button>
+    </form>
+    <table class="table mt-5 mb-6 is-fullwidth">
+      <thead>
+        <tr>
+          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Disciplina">Disciplina</abbr></th>
+          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Docente da Disciplina">Docente</abbr></th>
+          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Data da Atividade">Data</abbr></th>
+          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Atividade">Atividade</abbr></th>
+          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Nota da Atividade">Nota</abbr></th>
+          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Frequência da Disciplina">Frequência</abbr></th>
+          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Aulas Dadas e Aulas Previstas">Aulas Dadas</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{items}}
+      </tbody>
+    </table>
+  </div>
