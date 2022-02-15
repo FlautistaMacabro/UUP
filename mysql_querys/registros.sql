@@ -29,7 +29,7 @@ insert into curso (nome,tipo,minAnos,maxAnos,id_adm) values ('Mecatrônica', 2, 
 insert into aluno (ra,email,senha,nome,cpf,rg,data_nasc,id_sem,id_ano,id_curso)
     values ('745380','roberta@uup.br',MD5('senhamtofortesenha'),'Roberta','76809372101','86308593','2000-07-13',1,1,1);
 insert into aluno (ra,email,senha,nome,cpf,rg,data_nasc,id_sem,id_ano,id_curso)
-    values ('584557','julio@uup.br',MD5('senhafraca'),'Julio','58326050968','18473075','2002-08-11',2,2,1);
+    values ('584557','julio@uup.br',MD5('senhafraca'),'Julio','58326050968','18473075','2002-08-11',2,3,1);
 insert into aluno (ra,email,senha,nome,cpf,rg,data_nasc,id_sem,id_ano,id_curso)
     values ('575745','frederico@uup.br',MD5('senha1234'),'Frederico','95731095736','98365021','2003-10-24',1,1,1);
 insert into aluno (ra,email,senha,nome,cpf,rg,data_nasc,id_sem,id_ano,id_curso)
