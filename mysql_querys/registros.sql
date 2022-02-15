@@ -5,6 +5,7 @@ insert into semestre (num, aberto) values (1,1);
 insert into semestre (num, aberto) values (2,0);
 
 -- Ano
+insert into ano (num) values (2022);
 insert into ano (num) values (2021);
 insert into ano (num) values (2020);
 insert into ano (num) values (2019);
@@ -39,6 +40,8 @@ insert into aluno (ra,email,senha,nome,cpf,rg,data_nasc,id_sem,id_ano,id_curso)
 -- Coordenadores
 insert into professor (salario,cargaHoraria,email,senha,id_curso,nome,cpf,rg,data_nasc) 
     values (13000,120,'renato.prof@uup.br',MD5('jesselindaS2'),1,'Renato','24609812657','98972213','1993-04-21');
+insert into professor (salario,cargaHoraria,email,senha,id_curso,nome,cpf,rg,data_nasc) 
+    values (13000,120,'rosefe.prof@uup.br',MD5('renetolindoS2'),1,'Rosefe','24604732657','98975213','1990-06-14');
 insert into professor (salario,cargaHoraria,email,senha,id_curso,nome,cpf,rg,data_nasc)
     values (11000,110,'jessica.prof@uup.br',MD5('mundoUtopico'),2,'Jessica','65897538921','5453768','1994-09-23');
 
@@ -85,18 +88,18 @@ insert into aviso (nome,descricao,dataHora,id_discAnual) values ('Materiais comp
     'Segue abaixo links de materiais úteis para a disciplina:
     linkqualquer.com
     maisumlink.net
-    outroaqui.com/educacao', '2021-04-04 16:24:00', 1);
+    outroaqui.com/educacao', '2020-04-04 16:24:00', 1);
 insert into aviso (nome,descricao,dataHora,id_discAnual) values ('Método de avaliação',
     'Haverá uma prova que será a média e um forms que vocês tem que me entregar pra poder fazer esta prova.', '2021-04-13 12:12:00', 2);
 insert into aviso (nome,descricao,dataHora,id_discAnual) values ('Data da prova',
-    'A prova vai ser dia 04/08/2001.', '2021-07-16 08:20:00', 3);
+    'A prova vai ser dia 04/08/2001.', '2022-07-16 08:20:00', 3);
 insert into aviso (nome,descricao,dataHora,id_discAnual) values ('Não haverá aula',
-    'Infelizmente não poderei dar a aula de hoje. Voltamos semana que vem.', '2021-05-21 12:32:00', 4);
+    'Infelizmente não poderei dar a aula de hoje. Voltamos semana que vem.', '2022-05-21 12:32:00', 4);
 insert into aviso (nome,descricao,dataHora,id_discAnual) values ('Oportunidade de estágio',
     'Gosta de dinheiro? Para ganhar com a gente basta ter os seguintes requisitos:
     1 - Ter experiência com windows phone
     2 - Amar MacOS
-    3 - Sniper Monkey', '2021-07-27 21:14:00', 5);
+    3 - Sniper Monkey', '2022-07-27 21:14:00', 5);
 
 -- Avisos Globais
 insert into avisoGlobal (nome,descricao,dataHora,id_curso) 
@@ -139,21 +142,21 @@ insert into hora_aula (hora) values ('16:00:00');
 
 -- Aula
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
-    values ('Aula 1','Introdução','2021-04-12',1,3);
+    values ('Aula 1','Introdução','2022-04-12',1,3);
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
     values ('Aula 10','','2021-05-12',4,2);
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
-    values ('Aula 15','Prova 1','2021-06-20',2,1);
+    values ('Aula 15','Prova 1','2020-06-20',2,1);
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
-    values ('Aula 5','Loops de repetição','2021-04-27',1,4);
+    values ('Aula 5','Loops de repetição','2022-04-27',1,4);
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
-    values ('Aula 30','Prova Final','2021-07-08',3,5);
+    values ('Aula 30','Prova Final','2022-07-08',3,5);
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
-    values ('Aula 12','Prova 1','2021-06-14',1,4);
+    values ('Aula 12','Prova 1','2022-06-14',1,4);
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
-    values ('Aula 17','Prova 1','2021-05-14',1,3);
+    values ('Aula 17','Prova 1','2022-05-14',1,3);
 insert into aula (nome,descricao,dataAula,id_hora,id_discAnual) 
-    values ('Aula 24','Prova 2','2021-07-20',2,1);
+    values ('Aula 24','Prova 2','2020-07-20',2,1);
 
 -- Avaliação 
 insert into avaliacao (nome,id_aula) values ('P1',3);
