@@ -1,23 +1,25 @@
 <div class="column is-auto p-6" style="overflow-wrap: break-word;">
     <nav class="breadcrumb" aria-label="breadcrumbs">
       <ul>
-        <li><a href="{{URL}}/">Geral</a></li>
+        <li><a href="{{URL}}/freqnotas">Consultas</a></li>
         <li class="is-active"><a href="#" aria-current="page">Avisos</a></li>
       </ul>
     </nav>
-    <table class="table mt-5 mb-6 is-fullwidth">
-      <thead>
-        <tr>
-            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Grupo de alcance do aviso">Enviado para</abbr></th>
-            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Professor ou Coordenador que enviou">Enviado por</abbr></th>
-            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Sobre o que se trata o aviso">Assunto</abbr></th>
-            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Data e horário de envio">Data e Hora</abbr></th>
-        </tr>
-      </thead>
-      <tbody>
-        {{items}}
-      </tbody>
-    </table>
+    <div style="overflow-x: auto;">
+      <table class="table mt-5 mb-6 is-fullwidth">
+        <thead>
+          <tr>
+              <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Grupo de alcance do aviso">Enviado para</abbr></th>
+              <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Professor ou Coordenador que enviou">Enviado por</abbr></th>
+              <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Sobre o que se trata o aviso">Assunto</abbr></th>
+              <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Data e horário de envio">Data e Hora</abbr></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{items}}
+        </tbody>
+      </table>
+    </div>
     <nav class="pagination mt-5 is-centered" role="navigation" aria-label="pagination">
         <ul class="pagination-list">
             <!-- <li> <a class="pagination-link is-current">1</a></li>-->

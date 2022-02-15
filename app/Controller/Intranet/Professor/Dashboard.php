@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller\Intranet\Coord;
+namespace App\Controller\Intranet\Professor;
 
 use App\Controller\Page\PageBuilder;
-use App\Model\Entity\DashboardCoord;
+use App\Model\Entity\DashboardProfessor;
 use App\Controller\Intranet\Menu;
 
 class Dashboard{
@@ -14,36 +14,32 @@ class Dashboard{
     {
         //Componentes do Dashboard
 
-        //Nome Curso
-        $nomeCurso = (DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso;
-
         //Valores resumo universidade
-        $values = (DashboardCoord::getValues($_SESSION['admin']['usuario']['name']))[0];
+        $values = (DashboardProfessor::getValues($_SESSION['admin']['usuario']['name']))[0];
 
         //Header
         $header = PageBuilder::getComponent("pages/intranet/header", [
           'nome' => $_SESSION['admin']['usuario']['name'],
-          'cargo' => 'Coordenador de <strong>'.$nomeCurso.'</strong>'
+          'cargo' => 'Professor'
           ]);
 
 
         //Menu
         $menu = PageBuilder::getComponent("pages/intranet/menu", [
-          'items' => PageBuilder::getMenu(Menu::getCoordMenu(), 'Dashboard')
+          'items' => PageBuilder::getMenu(Menu::getProfessorMenu(), 'Dashboard')
           ]);
 
 
         //Content
-        $content = PageBuilder::getComponent("pages/coord/dashboard", [
-          'cursoNome' => $nomeCurso ,
-          'qtdDiscs' => $values->qtdDiscs,
-          'qtdProfs' => $values->qtdProfs,
-          'qtdAlunos' => $values->qtdAlunos
+        $content = PageBuilder::getComponent("pages/professor/dashboard", [
+          'qtdAlunos' => $values->qtdAlunos,
+          'qtdDiscsAtivas' => $values->qtdDiscsAtivas,
+          'qtdDiscs' => $values->qtdDiscs
           ]);
 
         //Recebe o Template e o Imprime na Tela
         echo PageBuilder::getTemplate('templates/intranet/template_intranet',[
-          'title' => 'Dashboard - Coordenador',
+          'title' => 'Dashboard - Professor',
           'header' => $header,
           'menu' => $menu,
           'content' => $content

@@ -10,7 +10,18 @@ $router->get('/professor', [
         'require-professor-permission'
     ],
     function(){
-        return new Response(200, "");
+        return new Response(200, Professor\Dashboard::getDashboard());
+    }
+]);
+
+//ROTA PROFESSOR (GET)
+$router->get('/professor/', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-professor-permission'
+    ],
+    function(){
+        return new Response(200, Professor\Dashboard::getDashboard());
     }
 ]);
 

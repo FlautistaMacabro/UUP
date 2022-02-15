@@ -8,8 +8,14 @@ class Menu{
     private static $alunoMenu = [
         'GERAL' => [
             [
+                'label' => 'Dashboard',
+                'link' => '/'
+            ]
+        ],
+        'CONSULTAS' => [
+            [
                 'label' => 'Frequências e Notas',
-                'link' =>  '/'
+                'link' =>  '/freqnotas'
             ],
             [
                 'label' => 'Histórico',

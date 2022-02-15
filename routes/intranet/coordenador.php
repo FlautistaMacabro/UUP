@@ -14,6 +14,17 @@ $router->get('/coord', [
     }
 ]);
 
+//ROTA COORD (GET)
+$router->get('/coord/', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-coord-permission'
+    ],
+    function(){
+        return new Response(200, Coord\Dashboard::getDashboard());
+    }
+]);
+
 //ROTA COORD DISCIPLINAS BASE (GET)
 $router->get('/coord/discbase', [
     'middlewares' => [

@@ -69,7 +69,7 @@ class PageBuilder {
 
         for ($i=0; $i < $count ; $i++) {
             (!($i%2 == 0)) ? $itemName = '1' : $itemName = '2';
-           
+
             $items .= PageBuilder::getComponent("pages/items/item{$itemName}", ['item' => $list[$i]->nome]);
         }
 
@@ -97,6 +97,8 @@ class PageBuilder {
                 'aulasPrev' => (($i>0) && ($list[$i]->aulasPrev == $list[$i-1]->aulasPrev)) ? '' : $list[$i]->aulasPrev
             ]);
         }
+
+        return $items;
     }
 
     //Método responsável por os itens da listagem
@@ -133,7 +135,7 @@ class PageBuilder {
 
         return $items;
       }
-    
+
     //Método responsável por os itens da listagem
     public static function getItemsAviso($list) {
         $items = '';

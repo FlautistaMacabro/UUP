@@ -1,7 +1,7 @@
 <div class="column is-auto p-6" style="overflow-wrap: break-word;">
     <nav class="breadcrumb" aria-label="breadcrumbs">
       <ul>
-        <li><a href="{{URL}}/">Geral</a></li>
+        <li><a href="{{URL}}/freqnotas">Consultas</a></li>
         <li class="is-active"><a href="#" aria-current="page">Histórico</a></li>
       </ul>
     </nav>
@@ -21,19 +21,22 @@
       </div>
       <button class="button is-info is-outlined">Aplicar</button>
     </form>
-    <table class="table mt-5 mb-6 is-fullwidth">
-      <thead>
-        <tr>
-          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Disciplina">Disciplina</abbr></th>
-          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Docente da Disciplina">Docente</abbr></th>
-          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Média da Disciplina">Média</abbr></th>
-          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Frequência da Disciplina">Frequência</abbr></th>
-          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Aulas Dadas e Aulas Previstas">Aulas Dadas</abbr></th>
-          <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Situação na Disciplina">Situação</abbr></th>
-        </tr>
-      </thead>
-      <tbody>
-        {{items}}
-      </tbody>
-    </table>
+    <div style="overflow-x: auto;">
+      <table class="table mt-5 mb-6 is-fullwidth">
+        <thead>
+          <tr>
+            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Disciplina">Disciplina</abbr></th>
+            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Docente da Disciplina">Docente</abbr></th>
+            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Média da Disciplina">Média</abbr></th>
+            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Frequência da Disciplina">Frequência</abbr></th>
+            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Aulas Dadas e Aulas Previstas">Aulas Dadas</abbr></th>
+            <th class="has-text-centered" style="white-space: nowrap;"><abbr style="text-decoration: none;" title="Situação na Disciplina">Situação</abbr></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{items}}
+        </tbody>
+      </table>
+    </div>
+
   </div>

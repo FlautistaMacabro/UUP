@@ -1,0 +1,42 @@
+<div class="column is-auto p-6">
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="{{URL}}/">Geral</a></li>
+      <li class="is-active"><a href="#" aria-current="page">Dashboard</a></li>
+    </ul>
+  </nav>
+  <h2 class="title is-2 has-text-centered has-text-grey">Bem-vindo ao Sistema de Graduação.</h2>
+  <h6 class="subtitle is-5 mt-6 has-text-centered">
+    Como <strong>aluno</strong> você pode visualizar suas informações de cada semestre, histórico, avisos, além de poder realizar rematrícula.
+    <br>
+    Nossa plataforma te ajuda nos minimos detalhes facilitando acesso as informações do seu curso.
+  </h6>
+  <div class="box mb-6" style="margin-top: 5rem;">
+    <div class="is-flex is-flex-direction-row is-justify-content-center mt-5">
+      <figure class="image is-64x64">
+        <img src="{{URL}}/app/Resources/images/gráfico.png">
+      </figure>
+    </div>
+    <p class="title has-text-centered mt-4">Resumo do Aluno - {{cursoNome}}</p>
+    <nav class="level mt-6 mb-6">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Disciplinas em Execução</p>
+          <p class="title">{{quantExecucao}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Aprovações em Disciplinas</p>
+          <p class="title">{{quantAprovado}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Disciplinas Restantes</p>
+          <p class="title">{{quantRestante}}</p>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

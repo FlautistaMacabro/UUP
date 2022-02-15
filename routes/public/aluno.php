@@ -3,8 +3,20 @@
 use App\Core\Response;
 use App\Controller\Public\Aluno;
 
-//ROTA FREQUÊNCIA DE NOTAS (GET)
+
+//ROTA DASHBOARD (GET)
 $router->get('/', [
+    'middlewares' => [
+        'require-login'
+    ],
+        function(){
+            return new Response(200, Aluno\Dashboard::getDashboard());
+        }
+    ]);
+
+
+//ROTA FREQUÊNCIA DE NOTAS (GET)
+$router->get('/freqnotas', [
 'middlewares' => [
     'require-login'
 ],
@@ -14,7 +26,7 @@ $router->get('/', [
 ]);
 
 //ROTA FREQUÊNCIA DE NOTAS (POST)
-$router->post('/', [
+$router->post('/freqnotas', [
 'middlewares' => [
     'require-login'
 ],

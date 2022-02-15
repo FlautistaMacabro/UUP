@@ -1,31 +1,24 @@
 <div class="column is-auto p-6">
   <nav class="breadcrumb" aria-label="breadcrumbs">
     <ul>
-      <li><a href="{{URL}}/admin">Geral</a></li>
+      <li><a href="{{URL}}/coord">Geral</a></li>
       <li class="is-active"><a href="#" aria-current="page">Dashboard</a></li>
     </ul>
   </nav>
   <h2 class="title is-2 has-text-centered has-text-grey">Bem-vindo ao painel administrativo.</h2>
   <h6 class="subtitle is-5 mt-6 has-text-centered">
-    Como <strong>administrador</strong> você pode gerir e administrar alunos,
-    professores, coordenadores e cursos.
+    Como <strong>coordenador de curso</strong> você pode gerir e administrar as disciplinas base, disciplinas anuais, avisos globais e abertura/fechamento de semestre.
     <br>
     Nossa plataforma te ajuda nos minimos detalhes e facilitamos a gestão de qualquer universidade.
   </h6>
-  <div class="box" style="margin-top: 5rem;">
+  <div class="box mb-6" style="margin-top: 5rem;">
     <div class="is-flex is-flex-direction-row is-justify-content-center mt-5">
       <figure class="image is-64x64">
         <img src="{{URL}}/app/Resources/images/gráfico.png">
       </figure>
     </div>
-    <p class="title has-text-centered mt-4">Resumo da universidade</p>
+    <p class="title has-text-centered mt-4">Resumo do Curso - {{cursoNome}}</p>
     <nav class="level mt-6 mb-6">
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Cursos</p>
-          <p class="title">{{qtdCursos}}</p>
-        </div>
-      </div>
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Total de Disciplinas</p>
@@ -34,8 +27,8 @@
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Funcionários</p>
-          <p class="title">{{qtdFuncs}}</p>
+          <p class="heading">Professores</p>
+          <p class="title">{{qtdProfs}}</p>
         </div>
       </div>
       <div class="level-item has-text-centered">
