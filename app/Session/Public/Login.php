@@ -14,7 +14,7 @@ class Login{
     }
 
     //Método responsável por criar a sessão
-    public static function login($getUserId, $getUserName)
+    public static function login($getUserId, $getUserName, $getUserCurso)
     {
       //Inicia a sessão
       self::init();
@@ -22,7 +22,8 @@ class Login{
       //Define a sessão do usuário
       $_SESSION['usuario'] = [
           'id' => $getUserId,
-          'name' => $getUserName
+          'name' => $getUserName,
+          'curso' => $getUserCurso
       ];
 
       //SUCESSO

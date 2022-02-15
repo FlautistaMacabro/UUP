@@ -1,1 +1,52 @@
-Opa
+<div class="column is-auto p-6" style="overflow-wrap: break-word;">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="{{URL}}/">Geral</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Frequências e Notas</a></li>
+      </ul>
+    </nav>
+    <form method="post">
+      <div class="select">
+        <select name="semestre">
+          <option>Semestre</option>
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </div>
+      <div class="select">
+        <select name="ano">
+          <option>Ano</option>
+          {{anos}}
+        </select>
+      </div>
+      <button class="button is-info is-outlined">Aplicar</button>
+    </form>
+    <div class="box mt-5 mb-6">
+      <div class="columns">
+        <div class="column">
+          <p class="title is-6" style="white-space: nowrap;">Disciplina</p>
+        </div>
+        <div class="column">
+          <p class="title is-6" style="white-space: nowrap;">Docente</p>
+        </div>
+        <div class="column">
+          <p class="title is-6" style="white-space: nowrap;">Data</p>
+        </div>
+        <div class="column">
+          <p class="title is-6" style="white-space: nowrap;">Atividade</p>
+        </div>
+        <div class="column">
+          <p class="title is-6" style="white-space: nowrap;">Nota</p>
+        </div>
+        <div class="column">
+          <p class="title is-6" style="white-space: nowrap;">Frequência</p>
+        </div>
+        <div class="column">
+          <p class="title is-6" style="white-space: nowrap;">Aulas Dadas</p>
+        </div>
+      </div>
+      <div class="">
+        {{items}}
+      </div>
+    </div>
+  </div>

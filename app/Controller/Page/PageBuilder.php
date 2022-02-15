@@ -65,16 +65,53 @@ class PageBuilder {
       {
         $items = '';
         $count = count($list);
+        $itemName = '';
 
         for ($i=0; $i < $count ; $i++) {
-           (!($i%2 == 0))
-           ? $items .= PageBuilder::getComponent("pages/items/item1", ['item' => $list[$i]->nome])
-           : $items .= PageBuilder::getComponent("pages/items/item2", ['item' => $list[$i]->nome]);
+            (!($i%2 == 0)) ? $itemName = '1' : $itemName = '2';
+           
+            $items .= PageBuilder::getComponent("pages/items/item{$itemName}", ['item' => $list[$i]->nome]);
         }
 
         return $items;
       }
 
+      //Método responsável por os itens da listagem
+      public static function getItemsFreqNotas($list)
+      {
+        $items = '';
+        $count = count($list);
+        $itemName = '';
 
+        for ($i=0; $i < $count ; $i++) {
+
+            (!($i%2 == 0)) ? $itemName = '1' : $itemName = '2';
+
+            $items .= PageBuilder::getComponent("pages/items/item3{$itemName}", [
+                'disc' => (($i>0) && ($list[$i]->disc == $list[$i-1]->disc)) ? '' : $list[$i]->disc,
+                'prof' => (($i>0) && ($list[$i]->prof == $list[$i-1]->prof)) ? '' : $list[$i]->prof,
+                'data' => date('d/m/Y', strtotime($list[$i]->data)),
+                'aval' => $list[$i]->aval,
+                'nota' => number_format($list[$i]->nota, 1, ',', ' '),
+                'freq' => (($i>0) && ($list[$i]->freq == $list[$i-1]->freq)) ? '' : $list[$i]->freq.'%',
+                'aulasDadas' => (($i>0) && ($list[$i]->aulasDadas == $list[$i-1]->aulasDadas)) ? '' : $list[$i]->aulasDadas.'/',
+                'aulasPrev' => (($i>0) && ($list[$i]->aulasPrev == $list[$i-1]->aulasPrev)) ? '' : $list[$i]->aulasPrev
+            ]);
+        }
+
+        return $items;
+      }
+
+      //Método responsável por os itens da listagem
+      public static function getOptionsAno($list)
+      {
+        $items = '';
+        $count = count($list);
+
+        for ($i=0; $i < $count ; $i++)
+            $items .= PageBuilder::getComponent("pages/options/optionAno", ['ano' => $list[$i]->ano]);
+
+        return $items;
+      }
 
 }

@@ -8,7 +8,7 @@ class Menu{
     private static $alunoMenu = [
         'GERAL' => [
             [
-                'label' => 'Home',
+                'label' => 'Frequências e Notas',
                 'link' =>  '/'
             ]
         ],

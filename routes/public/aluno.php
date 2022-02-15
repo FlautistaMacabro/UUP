@@ -3,13 +3,23 @@
 use App\Core\Response;
 use App\Controller\Public\Aluno;
 
-//ROTA HOME (GET)
+//ROTA FREQUÊNCIA DE NOTAS (GET)
 $router->get('/', [
 'middlewares' => [
     'require-login'
 ],
     function(){
         return new Response(200, Aluno\Home::getHome());
+    }
+]);
+
+//ROTA FREQUÊNCIA DE NOTAS (POST)
+$router->post('/', [
+'middlewares' => [
+    'require-login'
+],
+    function($request){
+        return new Response(200, Aluno\Home::getHome($request));
     }
 ]);
 

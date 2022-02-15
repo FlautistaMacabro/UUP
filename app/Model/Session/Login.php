@@ -12,6 +12,8 @@ class Login{
 
     public $name;
 
+    public $curso;
+
     public function __construct() {}
 
     public static function login($email,$senha){
@@ -22,10 +24,10 @@ class Login{
     }
 
     public static function loginAluno($email,$senha){
-        $query = "CALL verificaLoginAluno('{$email}','{$senha}',@retorno,@id,@nome_user);";
+        $query = "CALL verificaLoginAluno('{$email}','{$senha}',@retorno,@id,@nome_user,@nome_curso);";
         $database = new Database();
         $database->execute($query);
-        return (($database->execute('SELECT @retorno as type,@id as id,@nome_user as name;'))->fetchAll(PDO::FETCH_CLASS,self::class));
+        return (($database->execute('SELECT @retorno as type,@id as id,@nome_user as name, @nome_curso as curso;'))->fetchAll(PDO::FETCH_CLASS,self::class));
     }
 
 }
