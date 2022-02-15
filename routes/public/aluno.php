@@ -23,6 +23,36 @@ $router->post('/', [
     }
 ]);
 
+//ROTA HISTÓRICO (GET)
+$router->get('/historico', [
+'middlewares' => [
+    'require-login'
+],
+    function(){
+        return new Response(200, Aluno\Historico::getHistorico());
+    }
+]);
+
+//ROTA HISTÓRICO (POST)
+$router->post('/historico', [
+'middlewares' => [
+    'require-login'
+],
+    function($request){
+        return new Response(200, Aluno\Historico::getHistorico($request));
+    }
+]);
+
+//ROTA AVISO (GET)
+$router->get('/aviso', [
+'middlewares' => [
+    'require-login'
+],
+    function($request){
+        return new Response(200, Aluno\Aviso::getAviso($request));
+    }
+]);
+
 // ROTA ALTERAR SENHA (GET)
 $router->get('/password', [
 'middlewares' => [

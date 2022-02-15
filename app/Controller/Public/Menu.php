@@ -10,6 +10,14 @@ class Menu{
             [
                 'label' => 'Frequências e Notas',
                 'link' =>  '/'
+            ],
+            [
+                'label' => 'Histórico',
+                'link' =>  '/historico'
+            ],
+            [
+                'label' => 'Avisos',
+                'link' =>  '/aviso'
             ]
         ],
         'CONTA' => [

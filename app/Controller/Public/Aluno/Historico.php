@@ -4,16 +4,16 @@ namespace App\Controller\Public\Aluno;
 
 use App\Controller\Page\PageBuilder;
 use App\Controller\Public\Menu;
-use App\Model\Entity\AvalAlunoAnual;
+use App\Model\Entity\DiscAlunoAnual;
 use App\Model\Entity\Ano;
 
-class Home{
+class Historico{
     public function __construct() {}
 
     //Método responsável por retornar o conteúdo (view) da nossa home
-    public static function getHome($request = null)
+    public static function getHistorico($request = null)
     {
-        //Componentes da Home
+        //Componentes do Histórico
 
         // Header
         $header = PageBuilder::getComponent("pages/public/header", [
@@ -23,7 +23,7 @@ class Home{
 
         // Menu
         $menu = PageBuilder::getComponent("pages/public/menu", [
-          'items' => PageBuilder::getMenu(Menu::getAlunoMenu(), 'Frequências e Notas')
+          'items' => PageBuilder::getMenu(Menu::getAlunoMenu(), 'Histórico')
         ]);
 
         //Listagem
@@ -45,30 +45,21 @@ class Home{
           $ano = date('Y');
         }
 
-        $avaliacao = AvalAlunoAnual::getValues($_SESSION['usuario']['curso'], $ano, $semestre, $_SESSION['usuario']['name']);
-        $items = PageBuilder::getItemsFreqNotas($avaliacao);
+        $disciplinas = DiscAlunoAnual::getValues($_SESSION['usuario']['curso'], $ano, $semestre, $_SESSION['usuario']['name']);
+        $items = PageBuilder::getItemsHistorico($disciplinas);
 
         $anosAluno = Ano::getAnosAluno($_SESSION['usuario']['name']);
         $anosAluno = PageBuilder::getOptionsAno($anosAluno);
 
         // Content
-        $content = PageBuilder::getComponent("pages/aluno/home", [
+        $content = PageBuilder::getComponent("pages/aluno/historico", [
           'items' => $items,
           'anos' => $anosAluno
         ]);
 
-        // print_r('<pre>');
-        // print_r($cursos);
-        // print_r('</pre>');
-        // exit;
-
-        // $content = PageBuilder::getComponent("pages/aluno/home");
-          //   'items' => $items
-          // ]);
-
         //Recebe o Template e o Imprime na Tela
         echo PageBuilder::getTemplate('templates/public/template',[
-          'title' => 'Frequências e Notas',
+          'title' => 'Histórico',
           'header' => $header,
           'menu' => $menu,
           'content' => $content
