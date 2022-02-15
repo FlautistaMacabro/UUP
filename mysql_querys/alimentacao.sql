@@ -293,10 +293,24 @@ BEGIN
     END IF;
 
     IF flag = 0 then
-        UPDATE semestre SET aberto = 1 WHERE num = semestre;
-        SET flag = 1;
-    ELSE 
-        SET flag = 0;
+        -- Verificando se semestre atual está fechado
+        SELECT se.aberto INTO flag 
+            FROM semestre as se
+                INNER JOIN disciplinaBase as db
+                ON se.id_sem = db.id_sem
+            WHERE se.num = semestre AND db.id_curso = IdCurso
+            ORDER BY se.id_sem DESC LIMIT 1;
+        IF flag = 0 THEN
+            -- Semestre Atual aberto com sucesso
+            UPDATE semestre SET aberto = 1 WHERE num = semestre;
+            SET flag = 1;
+        ELSE
+            -- Semestre Atual já aberto
+            SET flag = 0;
+        END IF;
+    ELSE
+        -- Semestre anterior ainda aberto
+        SET flag = -1;
     END IF;
 
     RETURN flag;
@@ -324,10 +338,25 @@ BEGIN
     END IF;
 
     IF IDdisc IS NULL then
-        UPDATE semestre SET aberto = 0 WHERE num = semestre;
-        SET flag = 1;
-    ELSE 
-        SET flag = 0;
+        -- Verificando se o semestre atual está fechado
+        SELECT se.aberto INTO flag 
+            FROM semestre as se
+                INNER JOIN disciplinaBase as db
+                ON se.id_sem = db.id_sem
+            WHERE se.num = semestre AND db.id_curso = IdCurso
+            ORDER BY se.id_sem DESC LIMIT 1;
+        -- Semestre fechado com sucesso
+        IF flag = 1 THEN
+            -- Semestre Atual fechado com sucesso
+            UPDATE semestre SET aberto = 0 WHERE num = semestre;
+            SET flag = 1;
+        ELSE
+            -- Semestre Atual já fechado
+            SET flag = 0;
+        END IF;
+    ELSE
+        -- Ainda há disciplinas abertas no semestre atual
+        SET flag = -1;
     END IF;
 
     RETURN flag;
