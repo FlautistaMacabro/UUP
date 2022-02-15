@@ -2373,4 +2373,74 @@ BEGIN
     SELECT COUNT(id_aluno) INTO quantAlunos FROM aluno;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE listarQuantDiscCoord (nomeCoord varchar(100), OUT quantDiscBase tinyint, OUT quantAlunoCurso tinyint, OUT quantProfCurso tinyint)
+BEGIN
+    DECLARE idCurso int DEFAULT 0;
+
+    SET quantDiscBase = 0;
+    SET quantAlunoCurso = 0;
+    SET quantProfCurso = 0;
+
+    -- Adquirindo o ID do curso
+    SELECT id_curso INTO idCurso FROM professor WHERE nome = nomeCoord;
+
+    IF idCurso != 0 THEN
+        -- Total de disciplinas base no curso daquele coordenador
+        SELECT COUNT(id_discBase) INTO quantDiscBase FROM disciplinaBase WHERE id_curso = idCurso;
+
+        -- Total de alunos nas disciplinas daquele curso (ativas)
+        SELECT COUNT(al.id_aluno) INTO quantAlunoCurso 
+            FROM aluno as al
+                INNER JOIN dados_aluno as da
+                ON al.id_aluno = da.id_aluno
+                    INNER JOIN disciplinaAnual as dl
+                    ON da.id_discAnual = dl.id_discAnual
+                        INNER JOIN disciplinaBase as db
+                        ON dl.id_discBase = db.id_discBase
+            WHERE db.id_curso = idCurso AND dl.ativa = 1;
+
+        -- Total de professores nas disciplinas daquele curso (ativas)
+        SELECT COUNT(pr.id_prof) INTO quantProfCurso 
+            FROM professor as pr
+                INNER JOIN disciplinaAnual as dl
+                ON pr.id_prof = dl.id_prof
+                    INNER JOIN disciplinaBase as db
+                    ON dl.id_discBase = db.id_discBase
+            WHERE db.id_curso = idCurso AND dl.ativa = 1;
+    END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE listarQuantDiscProf (nomeProf varchar(100), OUT quantAlunoDisc tinyint, OUT quantDiscAtiva tinyint, OUT quantDiscCurso tinyint)
+BEGIN
+    DECLARE idProf int DEFAULT 0;
+
+    SET quantAlunoDisc = 0;
+    SET quantDiscAtiva = 0;
+    SET quantDiscCurso = 0;
+
+    -- Adquirindo o ID de professor
+    SELECT id_prof INTO idProf FROM professor WHERE nome = nomeProf;
+
+    IF idProf != 0 THEN
+        -- Total de alunos em suas disciplinas (ativas)
+        SELECT COUNT(al.id_aluno) INTO quantAlunoDisc 
+            FROM aluno as al
+                INNER JOIN dados_aluno as da
+                ON al.id_aluno = da.id_aluno
+                    INNER JOIN disciplinaAnual as dl
+                    ON da.id_discAnual = dl.id_discAnual
+            WHERE dl.id_prof = idProf AND dl.ativa = 1;
+
+        -- Total de disciplinas que esta dando (ativas)
+        SELECT COUNT(dl.id_discAnual) INTO quantDiscAtiva 
+            FROM disciplinaAnual as dl
+            WHERE dl.id_prof = idProf AND dl.ativa = 1;
+
+        -- Quantidade de disciplinas que ele já deu desde que entrou na faculdade (ativas + inativas)
+        SELECT COUNT(dl.id_discAnual) INTO quantDiscCurso 
+            FROM disciplinaAnual as dl
+            WHERE dl.id_prof = idProf;
+    END IF;
+END$$
+
 DELIMITER ;
