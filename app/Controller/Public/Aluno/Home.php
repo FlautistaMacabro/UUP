@@ -49,11 +49,15 @@ class Home{
         $items = PageBuilder::getItemsFreqNotas($avaliacao);
 
         $anosAluno = Ano::getAnosAluno($_SESSION['usuario']['name']);
-        $anosAluno = PageBuilder::getOptionsAno($anosAluno);
+        $anosAluno = PageBuilder::getOptionsAno($anosAluno, $ano);
+
+        $semestresAluno = array('1','2');
+        $semestresAluno = PageBuilder::getOptionsSemestre($semestresAluno, $semestre);
 
         // Content
         $content = PageBuilder::getComponent("pages/aluno/home", [
           'items' => $items,
+          'semestres' => $semestresAluno,
           'anos' => $anosAluno
         ]);
 
