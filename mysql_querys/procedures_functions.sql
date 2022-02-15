@@ -2197,4 +2197,56 @@ BEGIN
     END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE listarQuantDiscAluno (nomeAluno varchar(100), OUT quantExecucao tinyint, OUT quantAprovado tinyint, OUT quantRestante tinyint)
+BEGIN
+    DECLARE idAluno int DEFAULT 0;
+    DECLARE idCurso int DEFAULT 0;
+
+    SET quantExecucao = 0;
+    SET quantAprovado = 0;
+    SET quantRestante = 0;
+
+    -- Adquirindo o ID de aluno
+    SELECT id_aluno INTO idAluno FROM aluno WHERE nome = nomeAluno;
+
+    IF idAluno != 0 THEN
+        -- Quantidade de Disciplinas que o aluno está fazendo no momento
+        SELECT COUNT(dl.id_discAnual) INTO quantExecucao 
+            FROM disciplinaAnual as dl
+                INNER JOIN dados_aluno as da
+                ON dl.id_discAnual = da.id_discAnual
+                    INNER JOIN situacao_aluno as sa
+                    ON da.id_sit = sa.id_sit
+            WHERE da.id_aluno = idAluno AND sa.situacao_ = 'Em execução';
+
+        -- Quantidade de Disciplinas na qual o Aluno passou
+        SELECT COUNT(dl.id_discAnual) INTO quantAprovado 
+            FROM disciplinaAnual as dl
+                INNER JOIN dados_aluno as da
+                ON dl.id_discAnual = da.id_discAnual
+                    INNER JOIN situacao_aluno as sa
+                    ON da.id_sit = sa.id_sit
+            WHERE da.id_aluno = idAluno AND sa.situacao_ = 'Aprovado';
+
+        -- Adquirindo o ID de curso
+        SELECT c.id_curso INTO idCurso
+            FROM curso as c
+                INNER JOIN disciplinaBase as db
+                ON db.id_curso = c.id_curso
+                    INNER JOIN disciplinaAnual as dl
+                    ON db.id_discBase = dl.id_discBase
+                        INNER JOIN dados_aluno as da
+                        ON dl.id_discAnual = da.id_discAnual
+            WHERE da.id_aluno = idAluno
+            LIMIT 1;
+        
+        IF idCurso != 0 THEN
+            -- Quantidade de Disciplinas restantes no curso
+            SELECT (COUNT(db.id_discBase) - quantAprovado) INTO quantRestante 
+                FROM disciplinaBase as db
+                WHERE db.id_curso = idCurso;
+        END IF;
+    END IF;
+END$$
+
 DELIMITER ;
