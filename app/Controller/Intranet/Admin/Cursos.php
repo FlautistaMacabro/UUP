@@ -32,7 +32,7 @@ class Cursos{
 
       //Botões paginação
       $paginas = $obPagination->getPages();
-      $paginacao = PageBuilder::getButtons($paginas);
+      $paginacao = PageBuilder::getButtons($paginas,'/admin/cursos');
 
       //Listagem de cursos
       $cursos = Curso::listCurso($obPagination->getLimit());
