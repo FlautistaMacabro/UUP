@@ -41,7 +41,7 @@ insert into aluno (ra,email,senha,nome,cpf,rg,data_nasc,id_sem,id_ano,id_curso)
 insert into professor (salario,cargaHoraria,email,senha,id_curso,nome,cpf,rg,data_nasc) 
     values (13000,120,'renato.prof@uup.br',MD5('jesselindaS2'),1,'Renato','24609812657','98972213','1993-04-21');
 insert into professor (salario,cargaHoraria,email,senha,id_curso,nome,cpf,rg,data_nasc) 
-    values (13000,120,'rosefe.prof@uup.br',MD5('renetolindoS2'),1,'Rosefe','24604732657','98975213','1990-06-14');
+    values (13000,120,'rosefe.prof@uup.br',MD5('renatolindoS2'),1,'Rosefe','24604732657','98975213','1990-06-14');
 insert into professor (salario,cargaHoraria,email,senha,id_curso,nome,cpf,rg,data_nasc)
     values (11000,110,'jessica.prof@uup.br',MD5('mundoUtopico'),2,'Jessica','65897538921','5453768','1994-09-23');
 
@@ -102,16 +102,16 @@ insert into aviso (nome,descricao,dataHora,id_discAnual) values ('Oportunidade d
     3 - Sniper Monkey', '2022-07-27 21:14:00', 5);
 
 -- Avisos Globais
-insert into avisoGlobal (nome,descricao,dataHora,id_curso) 
-    values ('Evento de jogo', 'Jogos são tops uhhrrruuulll', '2021-09-13 12:12:00',1);
-insert into avisoGlobal (nome,descricao,dataHora,id_curso) 
-    values ('Evento de digitação', 'Digitando mais rápido que um carro vrum vrum', '2021-10-16 08:20:00',1);
-insert into avisoGlobal (nome,descricao,dataHora,id_curso) 
-    values ('EAD infinito', 'O curso agora é 100% ead KKK', '2021-10-21 08:20:00',1);
-insert into avisoGlobal (nome,descricao,dataHora,id_curso) 
-    values ('Montando PCs', 'Eae? Bora montar PC?', '2021-09-21 12:32:00',2);
-insert into avisoGlobal (nome,descricao,dataHora,id_curso) 
-    values ('Desmontando PCs', 'Eae? Bora desmontar PC?', '2021-10-21 12:32:00',2);
+insert into avisoGlobal (nome,descricao,dataHora,id_curso,id_prof) 
+    values ('Evento de jogo', 'Jogos são tops uhhrrruuulll', '2021-09-13 12:12:00',1,1);
+insert into avisoGlobal (nome,descricao,dataHora,id_curso,id_prof) 
+    values ('Evento de digitação', 'Digitando mais rápido que um carro vrum vrum', '2021-10-16 08:20:00',1,1);
+insert into avisoGlobal (nome,descricao,dataHora,id_curso,id_prof) 
+    values ('EAD infinito', 'O curso agora é 100% ead KKK', '2021-10-21 08:20:00',1,2);
+insert into avisoGlobal (nome,descricao,dataHora,id_curso,id_prof) 
+    values ('Montando PCs', 'Eae? Bora montar PC?', '2021-09-21 12:32:00',2,3);
+insert into avisoGlobal (nome,descricao,dataHora,id_curso,id_prof) 
+    values ('Desmontando PCs', 'Eae? Bora desmontar PC?', '2021-10-21 12:32:00',2,3);
 
 -- Situações do Aluno
 insert into situacao_aluno (situacao_) VALUES ('Em execução');

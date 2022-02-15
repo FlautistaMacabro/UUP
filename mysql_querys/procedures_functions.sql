@@ -390,16 +390,17 @@ BEGIN
 END$$
 
 -- PROCEDURE cadastrar avisos gerais
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cadastro_aviso_global`(nomeAviso varchar(100), descricaoAviso varchar(1000),
-nome_curso varchar(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cadastro_aviso_global`(nomeAviso varchar(100), descricaoAviso varchar(1000), nome_curso varchar(100), nomeProf varchar(100))
 begin
    DECLARE idCurso int(11);
+   DECLARE idProf int;
    declare dataHoraAviso datetime;
    select now() into dataHoraAviso;
-   SELECT curso.id_curso INTO idCurso FROM curso WHERE nome_curso = curso.nome;
-   if idCurso is not null then
-       insert into avisoGlobal(nome, descricao, dataHora, id_curso) 
-            values(nomeAviso, descricaoAviso, dataHoraAviso, idCurso);
+   SELECT curso.id_curso INTO idCurso FROM curso WHERE curso.nome = nome_curso;
+   SELECT professor.id_prof INTO idProf FROM professor WHERE professor.nome = nomeProf;
+   if (idCurso is not null) AND (idProf is not null) then
+       insert into avisoGlobal(nome, descricao, dataHora, id_curso, id_prof) 
+            values(nomeAviso, descricaoAviso, dataHoraAviso, idCurso, idProf);
     end if;
 end$$
 
@@ -923,10 +924,8 @@ END$$
 -- PROCEDURE para ATUALIZAR avisos globais
 CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarAvisoGlobal (idAvisoGlobal int, nomeAviso varchar(100), descricaoAviso varchar(1000))
 begin
-    declare dataHoraAviso datetime;
-    select now() into dataHoraAviso;
     UPDATE avisoGlobal 
-        SET nome = nomeAviso, descricao = descricaoAviso, dataHora = dataHoraAviso
+        SET nome = nomeAviso, descricao = descricaoAviso
         WHERE id_avisoGlobal = idAvisoGlobal;
 end$$
 

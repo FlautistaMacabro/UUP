@@ -123,8 +123,10 @@ create table avisoGlobal (
     descricao VARCHAR(1000) not null,
     dataHora DATETIME not null,
     id_curso int not null,
+    id_prof int not null,
     primary key (id_avisoGlobal),
-    FOREIGN key (id_curso) REFERENCES curso (id_curso)
+    FOREIGN key (id_curso) REFERENCES curso (id_curso),
+    FOREIGN key (id_prof) REFERENCES professor (id_prof)
 );
 
 create table situacao_aluno (
