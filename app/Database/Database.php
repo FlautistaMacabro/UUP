@@ -60,7 +60,7 @@ class Database{
             $statment->execute($params);
             return $statment;
         } catch (PDOException $e) {
-            die('Error: '.$e->getMessage());
+            return $e;
         }
     }
 

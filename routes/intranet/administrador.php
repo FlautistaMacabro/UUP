@@ -36,6 +36,17 @@ $router->get('/admin/cursos', [
     }
 ]);
 
+//ROTA ADMIN CURSOS (POST)
+$router->post('/admin/cursos', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-admin-permission'
+    ],
+    function($request){
+        return new Response(200, Admin\Cursos::postCursos($request));
+    }
+]);
+
 
 //ROTA ADMIN USERS (GET)
 $router->get('/admin/users', [

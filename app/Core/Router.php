@@ -110,7 +110,7 @@ class Router{
                 }
 
                 //Método não permitido
-                throw new Exception("Método não é permitido", 405);
+                throw new Exception(PageBuilder::getComponent("pages/errors/error_404"), 405);
 
             }
        }
@@ -131,7 +131,7 @@ class Router{
             //Verifica o controlador
 
             if(!isset($route['controller'])){
-                throw new Exception("A URL não pode ser processada", 500);
+                throw new Exception(PageBuilder::getComponent("pages/errors/error_404"), 500);
             }
 
             //Argumentos da função

@@ -1,3 +1,150 @@
+<div id="modal-cadastro" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box pl-6 pr-6">
+      <h4 class="mt-5 title is-4 has-text-centered has-text-grey"> Cadastrar Novo Curso</h4>
+      <form action="{{URL}}/admin/cursos" method="post">
+        <input name="post-action" type="hidden" value="cadastrar">
+        <div class="field mt-5">
+          <label class="label">Nome</label>
+          <div class="control mt-3">
+            <input class="input" name="nome-curso" type="text" placeholder="Nome Curso" required>
+          </div>
+        </div>
+        <div class="field mt-5">
+          <label class="label">Tipo de Curso</label>
+          <div class="control">
+            <div class="select">
+              <select required name="tipo-curso">
+                <option selected value="-1">Selecione um tipo de curso</option>
+                <option value="0">Bacharelado</option>
+                <option value="1">Licenciatura</option>
+                <option value="2">Tecnólogo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field mt-5">
+          <label class="label">Mínimo Anos</label>
+          <div class="control mt-3">
+            <input class="input" name="min-anos" type="number" min="1"  max="10" placeholder="Min Anos (inteiro positivo > 0)" required>
+          </div>
+        </div>
+        <div class="field mt-5">
+          <label class="label">Máximo Anos</label>
+          <div class="control mt-3">
+            <input class="input" name="max-anos" type="number" min="1" max="10" placeholder="Max Anos (inteiro positivo > 0)" required>
+          </div>
+        </div>
+        <article class="message is-dark mt-5">
+          <div class="message-body">
+            É necessário atribuir no mínimo um coordenador a cada curso criado. Atribuições de coordenadores podem ser feitas no <strong>Gerenciamento de Usuários</strong>.
+          </div>
+        </article>
+        <div class="mt-6 is-flex is-flex-direction-row is-justify-content-right is-align-items-center">
+          <button type="button" class="button mr-4 is-medium is-danger close-button" aria-label="close">Cancelar</button>
+          <button type="submit" class="button is-success is-medium">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <button class="modal-delete is-large" aria-label="close"></button>
+</div>
+
+
+
+
+
+<div id="modal-editar" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box pl-6 pr-6">
+      <h4 class="mt-5 title is-4 has-text-centered has-text-grey"> Informações do Curso</h4>
+      <form action="{{URL}}/admin/cursos" method="post">
+        <input name="post-action" type="hidden" value="editar">
+        <input id="nome-curso-atual" name="nome-curso-atual" type="hidden" value="">
+        <div class="field mt-5">
+          <label class="label">Nome</label>
+          <div class="control mt-3">
+            <input class="input" id="cursoNome" name="nome-curso" type="text" placeholder="Nome Curso" required>
+          </div>
+        </div>
+        <div class="field mt-5">
+          <label class="label">Tipo de Curso</label>
+          <div class="control">
+            <div class="select">
+              <select required name="tipo-curso" id="cursoTipo">
+                <option selected value="-1">Selecione um tipo de curso</option>
+                <option value="0">Bacharelado</option>
+                <option value="1">Licenciatura</option>
+                <option value="2">Tecnólogo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field mt-5">
+          <label class="label">Mínimo Anos</label>
+          <div class="control mt-3">
+            <input id="minAnos" class="input" name="min-anos" type="number" min="1"  max="10" placeholder="Min Anos (inteiro positivo > 0)" required>
+          </div>
+        </div>
+        <div class="field mt-5">
+          <label class="label">Máximo Anos</label>
+          <div class="control mt-3">
+            <input id="maxAnos" class="input" name="max-anos" type="number" min="1" max="10" placeholder="Max Anos (inteiro positivo > 0)" required>
+          </div>
+        </div>
+        <article class="message is-dark mt-5">
+          <div class="message-body">
+            Atribuições/Altreações de coordenadores podem ser feitas no <strong>Gerenciamento de Usuários</strong>.
+          </div>
+        </article>
+        <label class="label">Coordenadores</label>
+        <textarea id="nomeCoords" class="textarea" placeholder="Coordenadores" readonly disabled></textarea>
+        <div class="mt-6 is-flex is-flex-direction-row is-justify-content-right is-align-items-center">
+          <button type="button" class="button mr-4 is-medium is-danger close-button" aria-label="close">Cancelar</button>
+          <button type="submit" class="button is-info is-medium">Atualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <button class="modal-delete is-large" aria-label="close"></button>
+</div>
+
+
+
+
+
+
+<div id="modal-delete" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box pl-6 pr-6">
+      <h4 class="mt-5 title is-4 has-text-centered has-text-grey"> Deletar Curso</h4>
+      <h5 class="mt-4 subtitle is-5 has-text-centered">Tem certeza que deseja deletar o curso "<strong id="curso-delete-name"></strong>"?</h5>
+      <div class="mt-6 is-flex is-flex-direction-row is-justify-content-right is-align-items-center">
+        <form action="{{URL}}/admin/cursos" method="post">
+          <input name="post-action" type="hidden" value="deletar">
+          <input name="nome-curso-delete" type="hidden" value="">
+          <button type="button" class="button mr-4 is-medium is-light close-button" aria-label="close">Cancelar</button>
+          <button type="submit" class="button is-danger is-medium" name="confirm" value="true">Deletar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+
+
+
 <div class="column is-auto p-6">
   <nav class="breadcrumb" aria-label="breadcrumbs">
     <ul>
@@ -8,8 +155,9 @@
   <h2 class="title is-2 has-text-centered has-text-grey">
     Cadastro de Cursos
   </h2>
+  {{status}}
   <div class="is-flex is-flex-direction-row is-justify-content-center">
-    <button class="button is-primary is-medium">Cadastrar</button>
+    <button class="button is-primary is-medium js-modal-trigger" data-target="modal-cadastro">Cadastrar</button>
   </div>
 
   <div class="box mt-5 p-5 mb-6">
@@ -30,3 +178,5 @@
 
   </div>
 </div>
+<script src="{{URL}}/app/Resources/scripts/scriptModal.js"></script>
+<script src="{{URL}}/app/Resources/scripts/intranet/admin/scriptCursos.js"></script>

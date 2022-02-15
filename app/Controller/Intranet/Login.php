@@ -53,7 +53,7 @@ class Login{
         $loginStatus = (LoginIntranet::login($email,$senha))[0];
 
         //Error
-        if($loginStatus->type < 1 || $loginStatus->type > 3){return self::getLogin($request, $loginStatus->name);}
+        if($loginStatus->type < 1 || $loginStatus->type > 3){ self::getLogin($request, $loginStatus->name);}
 
         //Cria a sessão de login
         SessionIntranetLogin::login($loginStatus->type, $loginStatus->id, $loginStatus->name);

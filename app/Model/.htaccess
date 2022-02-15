@@ -1,0 +1,5 @@
+#Libera arquivos index
+<FilesMatch "Ajax.php$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
