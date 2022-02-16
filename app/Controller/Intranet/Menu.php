@@ -49,7 +49,7 @@ class Menu{
                 'link' => '/coord/periodo'
             ],
             [
-                'label' => 'Avisos',
+                'label' => 'Gerenciar Avisos',
                 'link' => '/coord/avisos'
             ]
         ],

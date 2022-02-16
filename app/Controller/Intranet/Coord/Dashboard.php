@@ -9,7 +9,7 @@ use App\Controller\Intranet\Menu;
 class Dashboard{
     public function __construct() {}
 
-    //Método responsável por retornar a dashboard do adm
+    //Método responsável por retornar a dashboard do coord
     public static function getDashboard()
     {
         //Componentes do Dashboard

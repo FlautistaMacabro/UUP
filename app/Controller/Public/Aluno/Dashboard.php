@@ -9,7 +9,7 @@ use App\Controller\Public\Menu;
 class Dashboard{
     public function __construct() {}
 
-    //Método responsável por retornar a dashboard do adm
+    //Método responsável por retornar a dashboard do aluno
     public static function getDashboard()
     {
         //Componentes do Dashboard
