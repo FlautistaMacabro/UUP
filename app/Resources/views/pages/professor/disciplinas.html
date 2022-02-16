@@ -1,0 +1,27 @@
+ <div class="column is-auto p-6">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="{{URL}}/professor/disciplinas">Administração</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Disciplinas</a></li>
+      </ul>
+    </nav>
+    <h2 class="title is-2 has-text-centered has-text-grey">
+      Disciplinas em andamento
+    </h2>
+    <div class="box mt-6 p-5 mb-6">
+      <div class="is-flex is-flex-direction-row is-justify-content-center">
+        <p class="title is-5 pl-4" style="width: 100%">Disciplinas </p>
+      </div>
+      <div class="mt-5 is-flex is-flex-direction-column is-justify-content-center">
+        {{items}}
+      </div>
+
+      <nav class="pagination mt-5 is-centered" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+          <!-- <li> <a class="pagination-link is-current">1</a></li>-->
+          {{pages}}
+        </ul>
+      </nav>
+
+    </div>
+  </div>

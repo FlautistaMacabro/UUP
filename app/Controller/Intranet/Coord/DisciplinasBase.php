@@ -24,14 +24,14 @@ class DisciplinasBase{
        $status = (!is_null($msg) && !is_null($typemsg)) ? (($typemsg) ? Alert::getSuccess($msg) : Alert::getError($msg)) : '';
 
       //Quantidade Disciplinas Base
-      $qtdCursos = DisciplinaBase::getQtdDiscBase();
+      $qtdDiscBase = DisciplinaBase::getQtdDiscBase();
 
       //Página atual
       $queryParams = $request->getQueryParams();
       $paginaAtual = $queryParams['page'] ?? 1;
 
       //Paginação
-      $obPagination = new Pagination($qtdCursos, $paginaAtual,5);
+      $obPagination = new Pagination($qtdDiscBase, $paginaAtual,5);
 
 
       //Botões paginação
@@ -39,8 +39,8 @@ class DisciplinasBase{
       $paginacao = PageBuilder::getButtons($paginas,'/coord/discbase');
 
       //Listagem de Disciplinas Base
-      $cursos = DisciplinaBase::listDiscBase($obPagination->getLimit());
-      $items = PageBuilder::getItems($cursos);
+      $disc = DisciplinaBase::listDiscBase($obPagination->getLimit());
+      $items = PageBuilder::getItems($disc);
 
        //Header
        $header = PageBuilder::getComponent("pages/intranet/header", [

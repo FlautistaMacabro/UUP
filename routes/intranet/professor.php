@@ -31,10 +31,47 @@ $router->get('/professor/disciplinas', [
         'require-intranet-login',
         'require-professor-permission'
     ],
-    function(){
-        return new Response(200, '');
+    function($request){
+        return new Response(200, Professor\Disciplinas::getDisciplinas($request));
     }
 ]);
+
+
+//ROTA PROFESSOR DISCIPLINAS (GET)
+$router->get('/professor/disciplinas/{id}', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-professor-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Professor\Disciplinas::manageDisciplina($request, $id));
+    }
+]);
+
+
+//ROTA PROFESSOR DISCIPLINAS (GET)
+$router->get('/professor/discAula/{id}', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-professor-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Professor\Aulas::getAulas($request, $id));
+    }
+]);
+
+
+//ROTA PROFESSOR DISCIPLINAS (POST)
+$router->post('/professor/discAula/{id}', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-professor-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Professor\Aulas::postAulas($request, $id));
+    }
+]);
+
 
 
 //ROTA PROFESSOR ALTERAR SENHA (GET)

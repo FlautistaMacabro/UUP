@@ -3,7 +3,6 @@
 namespace App\Controller\Intranet\Coord;
 
 use App\Controller\Page\PageBuilder;
-use App\Model\Entity\DisciplinaBase;
 use App\Model\Entity\DashboardCoord;
 use App\Database\Pagination;
 use App\Controller\Intranet\Menu;
@@ -25,14 +24,14 @@ class Avisos{
        $status = (!is_null($msg) && !is_null($typemsg)) ? (($typemsg) ? Alert::getSuccess($msg) : Alert::getError($msg)) : '';
 
       //Quantidade Avisos Globais
-      $qtdCursos = Aviso::getQtdAvisosGlobais();
+      $qtdAvisos = Aviso::getQtdAvisosGlobais();
 
       //Página atual
       $queryParams = $request->getQueryParams();
       $paginaAtual = $queryParams['page'] ?? 1;
 
       //Paginação
-      $obPagination = new Pagination($qtdCursos, $paginaAtual,5);
+      $obPagination = new Pagination($qtdAvisos, $paginaAtual,5);
 
 
       //Botões paginação
@@ -40,8 +39,8 @@ class Avisos{
       $paginacao = PageBuilder::getButtons($paginas,'/coord/avisos');
 
       //Listagem de Avisos Globais
-      $cursos = Aviso::listAvisosGlobais($obPagination->getLimit());
-      $items = PageBuilder::getItemsAvisoGlobal($cursos);
+      $avisos = Aviso::listAvisosGlobais($obPagination->getLimit());
+      $items = PageBuilder::getItemsAvisoGlobal($avisos);
 
        //Header
        $header = PageBuilder::getComponent("pages/intranet/header", [
