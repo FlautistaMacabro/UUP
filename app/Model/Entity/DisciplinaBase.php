@@ -73,6 +73,43 @@ class DisciplinaBase{
         return (new Database())->execute($query)->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function getNomesDiscBase($semestre, $nomeCurso, $limit) {
+        $query = "SELECT db.nome as 'nome'
+        FROM disciplinaBase as db
+            LEFT JOIN disciplinaAnual as dl
+               ON db.id_discBase = dl.id_discBase
+                INNER JOIN curso as c
+                ON db.id_curso = c.id_curso
+        WHERE db.id_sem = {$semestre} AND c.nome = '{$nomeCurso}' 
+          AND db.id_discBase NOT IN (SELECT db.id_discBase 
+                                       FROM disciplinaBase as db
+                                           INNER JOIN disciplinaAnual as dl
+                                        ON db.id_discBase = dl.id_discBase
+                                            INNER JOIN curso as c
+                                            ON db.id_curso = c.id_curso
+                                       WHERE db.id_sem = {$semestre} AND c.nome = '{$nomeCurso}')
+        LIMIT {$limit};";
+        return (new Database())->execute($query)->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+
+    public static function getQtdNomesDiscBase($semestre, $nomeCurso) {
+        $query = "SELECT COUNT(*) as qtd
+        FROM disciplinaBase as db
+            LEFT JOIN disciplinaAnual as dl
+               ON db.id_discBase = dl.id_discBase
+                INNER JOIN curso as c
+                ON db.id_curso = c.id_curso
+        WHERE db.id_sem = {$semestre} AND c.nome = '{$nomeCurso}' 
+          AND db.id_discBase NOT IN (SELECT db.id_discBase 
+                                       FROM disciplinaBase as db
+                                           INNER JOIN disciplinaAnual as dl
+                                        ON db.id_discBase = dl.id_discBase
+                                            INNER JOIN curso as c
+                                            ON db.id_curso = c.id_curso
+                                       WHERE db.id_sem = {$semestre} AND c.nome = '{$nomeCurso}')";
+        return (new Database())->execute($query)->fetchObject()->qtd;
+    }
+
 }
 
 

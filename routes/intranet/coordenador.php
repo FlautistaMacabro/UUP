@@ -195,3 +195,26 @@ $router->post('/coord/fecharrematricula', [
         return new Response(200, Coord\FecharRematricula::getFecharRematricula($request));
     }
 ]);
+
+//ROTA COORD CADASTAR DISCIPLINA ANUAL (GET)
+$router->get('/coord/cadastdiscanual', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-coord-permission'
+    ],
+    function($request){
+        return new Response(200, Coord\CadastrarDiscAnual::getCadastrarDiscAnual($request));
+    }
+]);
+
+
+//ROTA COORD CADASTAR DISCIPLINA ANUAL (POST)
+$router->post('/coord/cadastdiscanual', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-coord-permission'
+    ],
+    function($request){
+        return new Response(200, Coord\CadastrarDiscAnual::getCadastrarDiscAnual($request));
+    }
+]);

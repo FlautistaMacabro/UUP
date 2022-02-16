@@ -6,6 +6,7 @@ use \PDO;
 use App\Database\Database;
 
 class Semestre{
+
     public function __construct() {}
 
     public static function abrirSemestre($semestre, $nomeCurso){
@@ -30,5 +31,10 @@ class Semestre{
         $query = "SELECT fecharRematricula('{$nomeCurso}') as tipo";
         $database = new Database();
         return (STRING)(($database->execute($query))->fetch(PDO::FETCH_ASSOC))['tipo'];
+    }
+
+    public static function getSemestreAtivo(){
+        $query = "SELECT num as 'sem' FROM semestre WHERE aberto = 1 LIMIT 1";
+        return (new Database())->execute($query)->fetchObject()->sem;
     }
 }
