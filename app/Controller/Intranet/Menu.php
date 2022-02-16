@@ -49,6 +49,10 @@ class Menu{
                 'link' => '/coord/avisos'
             ],
             [
+                'label' => 'Cadastrar Disciplinas no Semestre',
+                'link' => '/coord/cadastdiscanual'
+            ],
+            [
                 'label' => 'Abrir Semestre',
                 'link' => '/coord/abrirsemestre'
             ],
