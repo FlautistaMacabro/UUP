@@ -81,7 +81,7 @@ $router->post('/admin/password', [
     }
 ]);
 
-//ROTA ADMIN CADASTAR ALUNO (GET)
+//ROTA ADMIN CADASTRAR ALUNO (GET)
 $router->get('/admin/cadaluno', [
     'middlewares' => [
         'require-intranet-login',
@@ -93,7 +93,7 @@ $router->get('/admin/cadaluno', [
 ]);
 
 
-//ROTA ADMIN CADASTAR ALUNO (POST)
+//ROTA ADMIN CADASTRAR ALUNO (POST)
 $router->post('/admin/cadaluno', [
     'middlewares' => [
         'require-intranet-login',
@@ -104,7 +104,7 @@ $router->post('/admin/cadaluno', [
     }
 ]);
 
-//ROTA ADMIN CADASTAR PROFESSOR (GET)
+//ROTA ADMIN CADASTRAR PROFESSOR (GET)
 $router->get('/admin/cadprof', [
     'middlewares' => [
         'require-intranet-login',
@@ -116,7 +116,7 @@ $router->get('/admin/cadprof', [
 ]);
 
 
-//ROTA ADMIN CADASTAR PROFESSOR (POST)
+//ROTA ADMIN CADASTRAR PROFESSOR (POST)
 $router->post('/admin/cadprof', [
     'middlewares' => [
         'require-intranet-login',
@@ -126,3 +126,26 @@ $router->post('/admin/cadprof', [
         return new Response(200, Admin\CadastroProfessor::getCadastroProfessor($request));
     }
 ]);
+
+//ROTA ADMIN CADASTRAR COORDENADOR (GET)
+// $router->get('/admin/cadcoord', [
+//     'middlewares' => [
+//         'require-intranet-login',
+//         'require-admin-permission'
+//     ],
+//     function(){
+//         return new Response(200, Admin\CadastroCoordenador::getCadastroCoordenador());
+//     }
+// ]);
+
+
+// //ROTA ADMIN CADASTRAR COORDENADOR (POST)
+// $router->post('/admin/cadcoord', [
+//     'middlewares' => [
+//         'require-intranet-login',
+//         'require-admin-permission'
+//     ],
+//     function($request){
+//         return new Response(200, Admin\CadastroCoordenador::getCadastroCoordenador($request));
+//     }
+// ]);
