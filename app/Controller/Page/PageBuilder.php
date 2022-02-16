@@ -128,6 +128,24 @@ class PageBuilder {
       }
 
       //Método responsável por os itens da listagem
+      public static function getItemsDadosAluno($list) {
+        $items = '';
+        $count = count($list);
+        $itemName = '';
+
+        for ($i=0; $i < $count ; $i++) {
+            (!($i%2 == 0)) ? $itemName = '1' : $itemName = '2';
+
+            $items .= PageBuilder::getComponent("pages/items/itemDadosAluno{$itemName}", [
+                'disc' => $list[$i]->disc,
+                'prof' => $list[$i]->prof
+            ]);
+        }
+
+        return $items;
+      }
+
+      //Método responsável por os itens da listagem
       public static function getItemsAvisoGlobal($list)
       {
         $items = '';

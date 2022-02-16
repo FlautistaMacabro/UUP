@@ -1,0 +1,30 @@
+<div class="column is-auto p-6">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="{{URL}}/">Geral</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Rematrícula</a></li>
+      </ul>
+    </nav>
+    <h2 class="title is-2 has-text-centered has-text-grey">
+        Rematrícula Semestral
+    </h2>
+    {{status}}
+    <div class="box mt-5 p-5 mb-6">
+      <div class="is-flex is-flex-direction-row is-justify-content-center">
+        <p class="title is-5 pl-4" style="width: 50%">Disciplina</p>
+        <p class="title is-5 pl-4" style="width: 30%">Professor</p>
+        <p class="title is-5 has-text-centered" style="width: 20%">Ações</p>
+      </div>
+      <div class="is-flex is-flex-direction-column is-justify-content-center">
+        {{items}}
+      </div>
+  
+      <nav class="pagination mt-5 is-centered" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+          <!-- <li> <a class="pagination-link is-current">1</a></li>-->
+          {{pages}}
+        </ul>
+      </nav>
+  
+    </div>
+</div>

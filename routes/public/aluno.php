@@ -85,6 +85,26 @@ $router->post('/password', [
     }
 ]);
 
+// ROTA MATRICULAR DISCIPLINA (GET)
+$router->get('/matricula', [
+'middlewares' => [
+    'require-login'
+],
+    function($request){
+        return new Response(200, Aluno\Matricula::getMatricula($request));
+    }
+]);
+
+// ROTA MATRICULAR DISCIPLINA (POST)
+$router->post('/matricula', [
+'middlewares' => [
+    'require-login'
+],
+    function($request){
+        return new Response(200, Aluno\Matricula::getMatricula($request));
+    }
+]);
+
 
 //ROTA DINÂMICA
 /*

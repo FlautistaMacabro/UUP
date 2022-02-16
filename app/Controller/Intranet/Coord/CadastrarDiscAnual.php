@@ -24,6 +24,8 @@ class CadastrarDiscAnual{
         //Quantidade Disciplinas
         $qtdDisc = DisciplinaBase::getQtdNomesDiscBase($semestre, $curso);
 
+        $status = '';
+
         if($qtdDisc > 0){
             //Página atual
             $queryParams = $request->getQueryParams();
@@ -36,8 +38,6 @@ class CadastrarDiscAnual{
             //Botões paginação
             $paginas = $obPagination->getPages();
             $paginacao = PageBuilder::getButtons($paginas,'/coord/cadastdiscanual');
-
-            $status = '';
 
             // Adquirindo Professor
             $postVars = $request->getPostVars();
@@ -67,12 +67,16 @@ class CadastrarDiscAnual{
                 ]);
             }else {
                 //Content
-                $content = PageBuilder::getComponent("pages/coord/cadastrarDiscAnualVazio");
+                $content = PageBuilder::getComponent("pages/coord/cadastrarDiscAnualVazio", [
+                    'status' => $status
+                ]);
             }
             
         }else {
             //Content
-            $content = PageBuilder::getComponent("pages/coord/cadastrarDiscAnualVazio");
+            $content = PageBuilder::getComponent("pages/coord/cadastrarDiscAnualVazio", [
+                'status' => $status
+            ]);
         }
 
         //Header
