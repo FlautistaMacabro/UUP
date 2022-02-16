@@ -1,0 +1,130 @@
+<div id="modal-cadastro" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="box pl-6 pr-6">
+            <h4 class="mt-5 title is-4 has-text-centered has-text-grey"> Cadastrar Novo Aviso</h4>
+            <form action="{{URL}}/professor/avisosprof/{{id}}" method="post">
+                <input name="post-action" type="hidden" value="cadastrar">
+                <div class="field mt-5">
+                    <label class="label">Nome(Assunto)</label>
+                    <div class="control mt-3">
+                        <input class="input" name="nome-aviso" type="text" placeholder="Nome Aviso" required>
+                    </div>
+                </div>
+                <label class="label mt-3">Descrição Aviso</label>
+                <textarea name="descricao-aviso" class="textarea" placeholder="Descrição Aviso" required></textarea>
+                <div class="mt-6 is-flex is-flex-direction-row is-justify-content-right is-align-items-center">
+                    <button type="button" class="button mr-4 is-medium is-danger close-button"
+                        aria-label="close">Cancelar</button>
+                    <button type="submit" class="button is-success is-medium">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button class="modal-delete is-large" aria-label="close"></button>
+</div>
+
+
+
+
+
+<div id="modal-editar" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="box pl-6 pr-6">
+            <h4 class="mt-5 title is-4 has-text-centered has-text-grey"> Informações da Aula</h4>
+            <form action="{{URL}}/professor/avisosprof/{{id}}" method="post">
+                <input name="post-action" type="hidden" value="editar">
+                <input id="id-aviso-atual" name="id-aviso-atual" type="hidden" value="">
+                <div class="field mt-5">
+                    <label class="label">Nome(Assunto)</label>
+                    <div class="control mt-3">
+                        <input class="input" id="nome-aviso" name="nome-aviso" type="text" placeholder="Nome Aviso" required>
+                    </div>
+                </div>
+                <label class="label mt-3">Descrição Aviso</label>
+                <textarea id="descricao-aviso" name="descricao-aviso" class="textarea" placeholder="Descrição Aviso" required></textarea>
+                <div class="mt-6 is-flex is-flex-direction-row is-justify-content-right is-align-items-center">
+                    <button type="button" class="button mr-4 is-medium is-danger close-button"
+                        aria-label="close">Cancelar</button>
+                    <button type="submit" class="button is-info is-medium">Atualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button class="modal-delete is-large" aria-label="close"></button>
+</div>
+
+
+
+
+
+
+<div id="modal-delete" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="box pl-6 pr-6">
+            <h4 class="mt-5 title is-4 has-text-centered has-text-grey"> Deletar Aviso</h4>
+            <h5 class="mt-4 subtitle is-5 has-text-centered">Tem certeza que deseja deletar o Aviso "<strong
+                  id="name-delete-aviso"></strong>"?</h5>
+            <div class="mt-6 is-flex is-flex-direction-row is-justify-content-right is-align-items-center">
+                <form action="{{URL}}/professor/avisosprof/{{id}}" method="post">
+                    <input name="post-action" type="hidden" value="deletar">
+                    <input id="id-delete-aviso" name="id-delete-aviso" type="hidden" value="">
+                    <button type="button" class="button mr-4 is-medium is-light close-button"
+                        aria-label="close">Cancelar</button>
+                    <button type="submit" class="button is-danger is-medium" name="confirm"
+                        value="true">Deletar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+
+
+<div class="column is-auto p-6">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{{URL}}/professor/avisosprof">Administração</a></li>
+            <li><a href="{{URL}}/professor/avisosprof" aria-current="page">Disciplinas</a></li>
+            <li><a href="{{URL}}/professor/avisosprof/{{id}}" aria-current="page">{{especdisc}}</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Avisos</a></li>
+        </ul>
+    </nav>
+    <h2 class="title is-2 has-text-centered has-text-grey">
+        Cadastro de Avisos
+    </h2>
+    {{status}}
+    <div class="is-flex is-flex-direction-row is-justify-content-center">
+        <button class="button is-primary is-medium js-modal-trigger" data-target="modal-cadastro">Cadastrar</button>
+    </div>
+
+    <div class="box mt-5 p-5 mb-6">
+        <div class="is-flex is-flex-direction-row is-justify-content-center">
+            <p class="title is-5 pl-4" style="width: 60%">Avisos(assunto)</p>
+            <p class="title is-5 has-text-centered" style="width: 40%">Ações</p>
+        </div>
+        <div class="is-flex is-flex-direction-column is-justify-content-center">
+            {{items}}
+        </div>
+
+        <nav class="pagination mt-5 is-centered" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+                <!-- <li> <a class="pagination-link is-current">1</a></li>-->
+                {{pages}}
+            </ul>
+        </nav>
+
+    </div>
+</div>
+<script src="{{URL}}/app/Resources/scripts/scriptModal.js"></script>
+<script src="{{URL}}/app/Resources/scripts/intranet/professor/scriptAvisos.js"></script>
