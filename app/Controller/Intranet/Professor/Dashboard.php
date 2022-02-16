@@ -24,9 +24,16 @@ class Dashboard{
           ]);
 
 
+        if($_SESSION['admin']['usuario']['type'] == 3) {
+            $menu = PageBuilder::getMenu(Menu::getProfessorMenuCoord(), 'Dashboard');
+        }
+        else{
+            $menu = PageBuilder::getMenu(Menu::getProfessorMenu(), 'Dashboard');
+        }
+
         //Menu
         $menu = PageBuilder::getComponent("pages/intranet/menu", [
-          'items' => PageBuilder::getMenu(Menu::getProfessorMenu(), 'Dashboard')
+          'items' => $menu
           ]);
 
 

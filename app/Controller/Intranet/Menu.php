@@ -102,6 +102,27 @@ class Menu{
         ]
     ];
 
+    private static $professorMenuCoord = [
+        'GERAL' => [
+            [
+                'label' => 'Dashboard',
+                'link' =>  '/professor'
+            ]
+        ],
+        'ADMINISTRAÇÃO' => [
+            [
+                'label' => 'Disciplinas',
+                'link' => '/professor/disciplinas'
+            ]
+        ],
+        'CONTA' => [
+            [
+                'label' => 'Alterar Perfil',
+                'link' => '/coord'
+            ]
+        ]
+    ];
+
     //Método responsável por retornar o Menu do Admin
     public static function getAdmMenu(){ return self::$adminMenu;}
 
@@ -110,5 +131,8 @@ class Menu{
 
     //Método responsável por retornar o Menu do Professor
     public static function getProfessorMenu(){ return self::$professorMenu;}
+
+    //Método responsável por retornar o Menu do Professor Coord
+    public static function getProfessorMenuCoord(){ return self::$professorMenuCoord;}
 
 }

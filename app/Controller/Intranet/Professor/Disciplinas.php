@@ -44,9 +44,16 @@ class Disciplinas{
         'cargo' => 'Professor'
         ]);
 
+      if($_SESSION['admin']['usuario']['type'] == 3) {
+          $menu = PageBuilder::getMenu(Menu::getProfessorMenuCoord(), 'Disciplinas');
+      }
+      else{
+          $menu = PageBuilder::getMenu(Menu::getProfessorMenu(), 'Disciplinas');
+      }
+
       //Menu
       $menu = PageBuilder::getComponent("pages/intranet/menu", [
-        'items' => PageBuilder::getMenu(Menu::getProfessorMenu(), 'Disciplinas')
+        'items' => $menu
         ]);
 
       //Content
@@ -77,9 +84,16 @@ class Disciplinas{
          'cargo' => 'Professor'
          ]);
 
+      if($_SESSION['admin']['usuario']['type'] == 3) {
+         $menu = PageBuilder::getMenu(Menu::getProfessorMenuCoord(), 'Disciplinas');
+      }
+      else{
+          $menu = PageBuilder::getMenu(Menu::getProfessorMenu(), 'Disciplinas');
+      }
+
        //Menu
        $menu = PageBuilder::getComponent("pages/intranet/menu", [
-         'items' => PageBuilder::getMenu(Menu::getProfessorMenu(), 'Disciplinas')
+         'items' => $menu
          ]);
 
        //Content
