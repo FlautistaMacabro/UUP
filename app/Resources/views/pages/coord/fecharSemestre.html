@@ -1,0 +1,30 @@
+<div class="column is-auto p-6">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="{{URL}}/coord/discbase">Administração</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Fechar Semestre</a></li>
+      </ul>
+    </nav>
+    <h2 class="title is-2 has-text-centered has-text-grey">
+        Fechar Semestre
+    </h2>
+    <form method="post">
+        {{status}}
+        <div class="columns is-centered mt-6">
+            <div class="column is-3">
+                <label class="subtitle is-4">Escolha o Semestre:</label>
+            </div>
+            <div class="column is-2">
+                <div class="select">
+                    <select name="semestre">
+                      <option value="0">Semestre</option>
+                      {{semestres}}
+                    </select>
+                </div>
+            </div>
+            <div class="column is-2">
+                <button class="button is-link is-danger has-text-weight-bold">Fechar</button>
+            </div>
+        </div>
+    </form>
+</div>

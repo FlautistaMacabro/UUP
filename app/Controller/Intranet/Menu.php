@@ -45,12 +45,24 @@ class Menu{
                 'link' => '/coord/discbase'
             ],
             [
-                'label' => 'Período',
-                'link' => '/coord/periodo'
-            ],
-            [
                 'label' => 'Avisos',
                 'link' => '/coord/avisos'
+            ],
+            [
+                'label' => 'Abrir Semestre',
+                'link' => '/coord/abrirsemestre'
+            ],
+            [
+                'label' => 'Fechar Semestre',
+                'link' => '/coord/fecharsemestre'
+            ],
+            [
+                'label' => 'Abrir Rematrícula',
+                'link' => '/coord/abrirrematricula'
+            ],
+            [
+                'label' => 'Fechar Rematrícula',
+                'link' => '/coord/fecharrematricula'
             ]
         ],
         'CONTA' => [
