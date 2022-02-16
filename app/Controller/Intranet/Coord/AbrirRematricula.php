@@ -14,12 +14,13 @@ class AbrirRematricula{
     //Método responsável por retornar a página de Alterar Senha
     public static function getAbrirRematricula($request = null)
     {
-        // Componentes do Abrir Rematricula
-
+        // Componentes do Abrir Semestre
+        $curso = (DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso;
+        
         // Header
         $header = PageBuilder::getComponent("pages/intranet/header", [
             'nome' => $_SESSION['admin']['usuario']['name'],
-            'cargo' => 'Coordenador'
+            'cargo' => "Coordenador de ". "<strong>{$curso}</strong>"
         ]);
 
         // Menu
@@ -44,7 +45,7 @@ class AbrirRematricula{
         if($semestre == '0')
             $status = Alert::getError('Escolha qual semestre que deseja abrir a rematrícula');
         elseif ($semestre != null){
-            $status = Semestre::abrirRematricula($semestre,(DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso);
+            $status = Semestre::abrirRematricula($semestre, $curso);
             if($status == -2)
                 $status = Alert::getError('O semestre escolhido está fechado');
             elseif ($status == -1)

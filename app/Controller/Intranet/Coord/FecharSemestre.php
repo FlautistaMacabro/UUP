@@ -14,12 +14,13 @@ class FecharSemestre{
     //Método responsável por retornar a página de Alterar Senha
     public static function getFecharSemestre($request = null)
     {
-        // Componentes do Fechar Semestre
-
+        // Componentes do Abrir Semestre
+        $curso = (DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso;
+        
         // Header
         $header = PageBuilder::getComponent("pages/intranet/header", [
             'nome' => $_SESSION['admin']['usuario']['name'],
-            'cargo' => 'Coordenador'
+            'cargo' => "Coordenador de ". "<strong>{$curso}</strong>"
         ]);
 
         // Menu
@@ -44,7 +45,7 @@ class FecharSemestre{
         if($semestre == '0')
             $status = Alert::getError('Escolha qual semestre que deseja fechar');
         elseif ($semestre != null){
-            $status = Semestre::fecharSemestre($semestre,(DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso);
+            $status = Semestre::fecharSemestre($semestre, $curso);
             if($status == -1)
                 $status = Alert::getError('As disciplinas do curso durante semestre escolhido precisam estar fechadas antes');
             else $status == 0 ? $status = Alert::getError('O semestre escolhido já está fechado') : $status = Alert::getSuccess('O semestre foi aberto com sucesso');
