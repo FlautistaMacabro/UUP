@@ -257,6 +257,19 @@ class PageBuilder {
     }
 
     //Método responsável por os itens da listagem
+    public static function getOptionsCurso($list) {
+        $items = '';
+        $count = count($list);
+
+        for ($i=0; $i < $count ; $i++)
+            $items .= PageBuilder::getComponent("pages/options/optionCurso", [
+                'curso' => "<option>{$list[$i]->nome}</option>"
+            ]);
+
+        return $items;
+    }
+
+    //Método responsável por os itens da listagem
     public static function getItemsAviso($list) {
         $items = '';
         $count = count($list);

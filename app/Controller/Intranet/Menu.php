@@ -18,10 +18,14 @@ class Menu{
                 'link' => '/admin/cursos'
             ]
         ],
-        'PESSOAS' => [
+        'GERENCIAR USUÁRIOS' => [
             [
-                'label' => 'Gerenciar Usuários',
-                'link' => '/admin/users'
+                'label' => 'Cadastrar Aluno',
+                'link' => '/admin/cadaluno'
+            ],
+            [
+                'label' => 'Cadastrar Professor',
+                'link' => '/admin/cadprof'
             ]
         ],
         'CONTA' => [

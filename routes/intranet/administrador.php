@@ -80,3 +80,49 @@ $router->post('/admin/password', [
         return new Response(200, Admin\AlterarSenha::setNewPassword($request));
     }
 ]);
+
+//ROTA ADMIN CADASTAR ALUNO (GET)
+$router->get('/admin/cadaluno', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-admin-permission'
+    ],
+    function(){
+        return new Response(200, Admin\CadastroAluno::getCadastroAluno());
+    }
+]);
+
+
+//ROTA ADMIN CADASTAR ALUNO (POST)
+$router->post('/admin/cadaluno', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-admin-permission'
+    ],
+    function($request){
+        return new Response(200, Admin\CadastroAluno::getCadastroAluno($request));
+    }
+]);
+
+//ROTA ADMIN CADASTAR PROFESSOR (GET)
+$router->get('/admin/cadprof', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-admin-permission'
+    ],
+    function(){
+        return new Response(200, Admin\CadastroProfessor::getCadastroProfessor());
+    }
+]);
+
+
+//ROTA ADMIN CADASTAR PROFESSOR (POST)
+$router->post('/admin/cadprof', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-admin-permission'
+    ],
+    function($request){
+        return new Response(200, Admin\CadastroProfessor::getCadastroProfessor($request));
+    }
+]);

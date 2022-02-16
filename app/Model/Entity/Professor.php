@@ -56,4 +56,10 @@ class Professor{
         return ($database->execute($query))->fetchAll(PDO::FETCH_CLASS,self::class);
     }
 
+    public static function cadastrarProf($salario, $cargaHoraria, $senha, $nome, $cpf, $rg, $dataNasc){
+        $query = "CALL sp_cadastro_professor ($salario, $cargaHoraria, '$senha', '$nome', '$cpf', '$rg', '$dataNasc');";
+        $database = new Database();
+        return ($database->execute($query))->fetchAll(PDO::FETCH_CLASS,self::class);
+    }
+
 }
