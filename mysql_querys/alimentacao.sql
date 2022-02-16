@@ -389,11 +389,26 @@ BEGIN
         ORDER BY da.id_discAnual DESC LIMIT 1;
 
         IF IDdisc IS NOT NULL then
-            -- Há pelo menos uma disciplina aberta no semestre, a rematrícula é aberta
-            UPDATE rematricula SET aberta = 1 WHERE rematricula.id_sem = semestre;
-        ELSE 
-            SET flag = 0;
+            -- Há pelo menos uma disciplina aberta no semestre
+
+            -- Verificando se a rematrícula já não está aberta
+            SELECT aberta INTO flag FROM rematricula WHERE id_sem = semestre;
+
+            IF flag = 0 THEN
+                -- Rematrícula é aberta
+                UPDATE rematricula SET aberta = 1 WHERE rematricula.id_sem = semestre;
+                SET flag = 1;
+            ELSE
+                -- A rematrícula já está aberta
+                SET flag = 0;
+            END IF;
+        ELSE
+            -- Não há nenhuma disciplina aberta no semestre
+            SET flag = -1;
         END IF;
+    ELSE
+        -- O semestre atual está fechado
+        SET flag = -2;
     END IF;
     RETURN flag;
 END$$
@@ -426,11 +441,20 @@ BEGIN
     END IF;
 
     IF IDdisc IS NULL THEN
-        UPDATE rematricula SET aberta = 0 WHERE aberta = 1;
-        -- Não há disciplinas diponíveis que nenhum aluno se inscreveu, a rematrícula foi fechada
-        SET flag = 1;
+        -- Verificando se a rematrícula já não está fechada
+        SELECT aberta INTO flag FROM rematricula WHERE id_sem = semestre;
+
+        IF flag = 1 THEN
+            -- Rematrícula é fechada
+            UPDATE rematricula SET aberta = 0 WHERE rematricula.id_sem = semestre;
+            SET flag = 1;
+        ELSE
+            -- A rematrícula já está fechada
+            SET flag = 0;
+        END IF;
+    ELSE
         -- Há disciplinas diponíveis que nenhum aluno se inscreveu, a rematrícula continua aberta
-    ELSE SET flag = 0;
+        SET flag = -1;
     END IF;
     RETURN flag;
 END$$
@@ -590,19 +614,14 @@ end$$
 
 -- PROCEDURE para cadastrar disciplina base
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cadastro_disciplina_base`(nome varchar(100), cargaHoraria int(11),
-quantAulasPrev int(11), nome_curso varchar(100), ano_minimo int)
+quantAulasPrev int(11), nome_curso varchar(100), semestreDado int, ano_minimo int)
 BEGIN
     DECLARE idCurso int;
-    DECLARE semestre int;
     select curso.id_curso into idCurso from curso where curso.nome = nome_curso;
-    IF MONTH(CURDATE()) <= 6 THEN
-        SET semestre = 1;
-    ELSE SET semestre = 2;
-    END IF;
     CASE
     WHEN idCurso IS NOT NULL THEN
         insert into disciplinaBase(nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo) 
-        values(nome,cargaHoraria,quantAulasPrev,idCurso,semestre,ano_minimo);
+        values(nome,cargaHoraria,quantAulasPrev,idCurso,semestreDado,ano_minimo);
     END CASE;
 END$$
 
