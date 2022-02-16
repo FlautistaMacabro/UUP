@@ -27,6 +27,10 @@ class Menu{
                 'label' => 'Cadastrar Professor',
                 'link' => '/admin/cadprof'
             ]
+            // [
+            //     'label' => 'Cadastrar Coordenador',
+            //     'link' => '/admin/cadcoord'
+            // ]
         ],
         'CONTA' => [
             [
