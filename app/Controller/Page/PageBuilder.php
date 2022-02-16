@@ -125,13 +125,35 @@ class PageBuilder {
     }
 
       //Método responsável por os itens da listagem
-      public static function getOptionsAno($list)
-      {
+      public static function getOptionsAno($list, $ano) {
         $items = '';
         $count = count($list);
+        $selected = '';
 
-        for ($i=0; $i < $count ; $i++)
-            $items .= PageBuilder::getComponent("pages/options/optionAno", ['ano' => $list[$i]->ano]);
+        for ($i=0; $i < $count ; $i++){
+            $list[$i]->ano == $ano ?  $selected = ' selected' : $selected = '';
+
+            $items .= PageBuilder::getComponent("pages/options/optionAno", [
+                'ano' => "<option{$selected}>{$list[$i]->ano}</option>"
+            ]);
+        }
+
+        return $items;
+      }
+
+      //Método responsável por os itens da listagem
+      public static function getOptionsSemestre($list, $sem) {
+        $items = '';
+        $count = count($list);
+        $selected = '';
+
+        for ($i=0; $i < $count ; $i++){
+            $list[$i] == $sem ?  $selected = ' selected' : $selected = '';
+
+            $items .= PageBuilder::getComponent("pages/options/optionSemestre", [
+                'semestre' => "<option{$selected} value='{$list[$i]}'>{$list[$i]}º</option>"
+            ]);
+        }
 
         return $items;
       }
