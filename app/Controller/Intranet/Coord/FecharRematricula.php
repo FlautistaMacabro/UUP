@@ -15,11 +15,12 @@ class FecharRematricula{
     public static function getFecharRematricula($request = null)
     {
         // Componentes do Abrir Semestre
-
+        $curso = (DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso;
+        
         // Header
         $header = PageBuilder::getComponent("pages/intranet/header", [
             'nome' => $_SESSION['admin']['usuario']['name'],
-            'cargo' => 'Coordenador'
+            'cargo' => "Coordenador de ". "<strong>{$curso}</strong>"
         ]);
 
         // Menu
@@ -30,7 +31,7 @@ class FecharRematricula{
         $status = '';
         if($request != null){
             // Carregando a mensagem correta
-            $status = Semestre::fecharRematricula((DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso);
+            $status = Semestre::fecharRematricula($curso);
 
             if($status == -1)
                 $status = Alert::getError('Há disciplinas diponíveis que nenhum aluno se inscreveu');

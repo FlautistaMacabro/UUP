@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller\Page;
+use App\Model\Entity\Professor;
 
 use App\Utils\View;
 
@@ -77,6 +78,24 @@ class PageBuilder {
       }
 
       //Método responsável por os itens da listagem
+      public static function getItemsDiscAnual($list) {
+        $items = '';
+        $count = count($list);
+        $itemName = '';
+
+        for ($i=0; $i < $count ; $i++) {
+            (!($i%2 == 0)) ? $itemName = '1' : $itemName = '2';
+
+            $items .= PageBuilder::getComponent("pages/items/item8{$itemName}", [
+                'item' => $list[$i]->nome,
+                'professores' => self::getOptionsProfessor(Professor::getNomesProf())
+            ]);
+        }
+
+        return $items;
+      }
+
+      //Método responsável por os itens da listagem
       public static function getItemsAvisoGlobal($list)
       {
         $items = '';
@@ -140,8 +159,8 @@ class PageBuilder {
         return $items;
     }
 
-      //Método responsável por os itens da listagem
-      public static function getOptionsAno($list, $ano) {
+    //Método responsável por os itens da listagem
+    public static function getOptionsAno($list, $ano) {
         $items = '';
         $count = count($list);
         $selected = '';
@@ -155,10 +174,10 @@ class PageBuilder {
         }
 
         return $items;
-      }
+    }
 
-      //Método responsável por os itens da listagem
-      public static function getOptionsSemestre($list, $sem) {
+    //Método responsável por os itens da listagem
+    public static function getOptionsSemestre($list, $sem) {
         $items = '';
         $count = count($list);
         $selected = '';
@@ -169,10 +188,23 @@ class PageBuilder {
             $items .= PageBuilder::getComponent("pages/options/optionSemestre", [
                 'semestre' => "<option{$selected} value='{$list[$i]}'>{$list[$i]}º</option>"
             ]);
-        }
+    }
+
+    return $items;
+    }
+
+    //Método responsável por os itens da listagem
+    public static function getOptionsProfessor($list) {
+        $items = '';
+        $count = count($list);
+
+        for ($i=0; $i < $count ; $i++)
+            $items .= PageBuilder::getComponent("pages/options/optionProfessor", [
+                'professor' => "<option>{$list[$i]->nome}</option>"
+            ]);
 
         return $items;
-      }
+    }
 
     //Método responsável por os itens da listagem
     public static function getItemsAviso($list) {

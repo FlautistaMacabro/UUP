@@ -1,0 +1,26 @@
+<div class="has-background-white-ter" style="border: 1px solid lightgrey;">
+    <form method="post" class="is-flex is-flex-direction-row py-2">
+        <div class="is-flex is-flex-direction-row is-align-items-center" style="width: 60%;">
+            <input class="subtitle is-5 pl-5 has-background-white-ter" style="border: none;
+            display: inline;
+            padding: none;
+            width: 100%;" name="disciplina" value="{{item}}" readonly>
+        </div>
+        <div class="is-flex is-flex-direction-row is-align-items-center is-justify-content-center is-flex-wrap-wrap" style="width: 20%;">
+            <div class="select">
+                <select name="professor">
+                    <option>Professor</option>
+                    {{professores}}
+                </select>
+            </div>
+        </div>
+        <div class="is-flex is-flex-direction-row is-align-items-center is-justify-content-center is-flex-wrap-wrap" style="width: 20%;">
+            <button class="button is-info btn-editar" style="width: 8rem;">
+                <span>Cadastrar</span>
+                <span class="icon is-small">
+                <i class="fas fa-edit"></i>
+                </span>
+            </button>
+        </div>
+    </form>
+</div>
