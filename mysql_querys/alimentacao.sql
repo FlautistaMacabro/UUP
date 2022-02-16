@@ -131,6 +131,8 @@ insert into disciplinaBase (nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,ano
     values ('Algoritmos e Técnicas de Programação',180,70,1,1,1);
 insert into disciplinaBase (nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo)
     values ('Engenharia de Software',150,60,1,1,3);
+insert into disciplinaBase (nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo)
+    values ('Sistemas Operacionais 2',160,65,1,1,3);
 
 -- Rematrícula
 insert into rematricula (aberta, id_sem)
@@ -195,6 +197,10 @@ insert into dados_aluno (id_aluno,id_sit,id_discAnual)
     values (2,2,2);
 insert into dados_aluno (id_aluno,id_sit,id_discAnual)
     values (4,1,4);
+insert into dados_aluno (id_aluno,id_sit,id_discAnual)
+    values (5,1,4);
+insert into dados_aluno (id_aluno,id_sit,id_discAnual)
+    values (1,1,4);
 insert into dados_aluno (id_aluno,id_sit,id_discAnual)
     values (2,1,3);
 insert into dados_aluno (id_aluno,id_sit,id_discAnual)
@@ -365,7 +371,7 @@ END$$
 -- ABRIR e FECHAR período de REMATRÍCULA
 
 -- FUNCTION para abrir rematrícula de um semestre
-CREATE DEFINER=`root`@`localhost` FUNCTION abrirRematricula (semestre int, nomeCurso varchar(100))
+CREATE DEFINER=`root`@`localhost` FUNCTION abrirRematricula (semestreDado int, nomeCurso varchar(100))
 RETURNS tinyint
 BEGIN
     DECLARE IDdisc int;
@@ -376,7 +382,7 @@ BEGIN
     SELECT id_curso INTO IdCurso FROM curso WHERE nome = nomeCurso;
     
     -- Verificando se o semestre atual está aberto
-    SELECT aberto INTO flag FROM semestre WHERE num = semestre;
+    SELECT aberto INTO flag FROM semestre WHERE num = semestreDado;
 
     IF flag = 1 AND IdCurso IS NOT NULL THEN
         -- O semestre atual está aberto
@@ -385,18 +391,25 @@ BEGIN
         FROM disciplinaAnual as da
             INNER JOIN disciplinaBase as db
             ON da.id_discBase = db.id_discBase
-        WHERE db.id_sem = semestre AND da.aberta = 1 AND db.id_curso = IdCurso
+        WHERE db.id_sem = semestreDado AND da.ativa = 1 AND db.id_curso = IdCurso
         ORDER BY da.id_discAnual DESC LIMIT 1;
 
         IF IDdisc IS NOT NULL then
             -- Há pelo menos uma disciplina aberta no semestre
 
             -- Verificando se a rematrícula já não está aberta
-            SELECT aberta INTO flag FROM rematricula WHERE id_sem = semestre;
+            SELECT re.aberta INTO flag 
+                FROM rematricula as re
+                    INNER JOIN semestre as se
+                    ON re.id_sem = se.id_sem
+                        INNER JOIN disciplinaBase as db
+                        ON se.id_sem = db.id_sem
+                WHERE se.id_sem = semestreDado AND db.id_curso = IdCurso
+                LIMIT 1;
 
             IF flag = 0 THEN
                 -- Rematrícula é aberta
-                UPDATE rematricula SET aberta = 1 WHERE rematricula.id_sem = semestre;
+                UPDATE rematricula SET aberta = 1 WHERE id_sem = semestreDado;
                 SET flag = 1;
             ELSE
                 -- A rematrícula já está aberta
@@ -441,16 +454,20 @@ BEGIN
     END IF;
 
     IF IDdisc IS NULL THEN
+        SET flag = 0;
         -- Verificando se a rematrícula já não está fechada
-        SELECT aberta INTO flag FROM rematricula WHERE id_sem = semestre;
+        SELECT re.aberta INTO flag 
+                FROM rematricula as re
+                    INNER JOIN semestre as se
+                    ON re.id_sem = se.id_sem
+                        INNER JOIN disciplinaBase as db
+                        ON se.id_sem = db.id_sem
+                WHERE re.aberta = 1 AND db.id_curso = IdCurso
+                LIMIT 1;
 
         IF flag = 1 THEN
             -- Rematrícula é fechada
-            UPDATE rematricula SET aberta = 0 WHERE rematricula.id_sem = semestre;
-            SET flag = 1;
-        ELSE
-            -- A rematrícula já está fechada
-            SET flag = 0;
+            UPDATE rematricula SET aberta = 0 WHERE aberta = 1;
         END IF;
     ELSE
         -- Há disciplinas diponíveis que nenhum aluno se inscreveu, a rematrícula continua aberta
@@ -617,11 +634,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cadastro_disciplina_base`(nome v
 quantAulasPrev int(11), nome_curso varchar(100), semestreDado int, ano_minimo int)
 BEGIN
     DECLARE idCurso int;
+    DECLARE flag int DEFAULT 0;
     select curso.id_curso into idCurso from curso where curso.nome = nome_curso;
     CASE
     WHEN idCurso IS NOT NULL THEN
-        insert into disciplinaBase(nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo) 
-        values(nome,cargaHoraria,quantAulasPrev,idCurso,semestreDado,ano_minimo);
+        SELECT id_curso INTO flag FROM disciplinaBase WHERE id_curso = idCurso;
+
+        IF flag = 0 THEN
+            insert into disciplinaBase(nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo) 
+            values(nome,cargaHoraria,quantAulasPrev,idCurso,semestreDado,ano_minimo);
+        END IF;
     END CASE;
 END$$
 
@@ -660,8 +682,23 @@ begin
         values(salario,cargaHoraria,emailCriado,senha,nome,cpf,rg,data_nasc);
 end$$
 
+-- PROCEDURE para cadastrar coordenador
+CREATE DEFINER=`root`@`localhost` PROCEDURE sp_cadastro_coord (salario float, cargaHoraria int(11), senha varchar(80), nome varchar(100), cpf char(11), rg varchar(15), data_nasc date, nomeCurso varchar(100))
+begin
+    DECLARE emailCriado varchar(100) DEFAULT '.prof@uup.br';
+    DECLARE idCurso int DEFAULT 0;
+    SET cpf = REPLACE(cpf, '.', '');
+    SET rg = REPLACE(cpf, '-', '');
+    SET cpf = REPLACE(cpf, '-', '');
+    SET rg = REPLACE(rg, '.', '');
+    SELECT novoEmailProf(nome) INTO emailCriado;
+    SELECT id_curso INTO idCurso FROM curso WHERE nome = nomeCurso;
+    insert into professor(salario, cargaHoraria, email, senha, nome, cpf, rg, data_nasc, id_curso) 
+        values(salario,cargaHoraria,emailCriado,senha,nome,cpf,rg,data_nasc,idCurso);
+end$$
+
 -- PROCEDURE para cadastrar aluno
-CREATE DEFINER=`root`@`localhost` PROCEDURE sp_cadastro_aluno (ra char(6), senha varchar(80), nome varchar(100), cpf char(14), rg VARCHAR(15), data_nasc date, nome_curso varchar(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE sp_cadastro_aluno (senha varchar(80), nome varchar(100), cpf char(14), rg VARCHAR(15), data_nasc date, nome_curso varchar(100))
 BEGIN
     DECLARE semestre int;
     DECLARE idAnoAtual int;
@@ -680,8 +717,8 @@ BEGIN
     SELECT id_ano INTO idAnoAtual FROM ano WHERE num = YEAR(CURDATE());
     SELECT curso.id_curso INTO idCurso FROM curso WHERE nome_curso = curso.nome;
     IF (idAnoAtual IS NOT NULL) AND (idCurso IS NOT NULL) THEN
-        INSERT INTO aluno(`ra`, `email`, `senha`, `nome`, `cpf`, `rg`, `data_nasc`, `id_sem`, `id_ano`, `id_curso`) 
-                VALUES(`ra`, emailCriado, `senha`, `nome`, `cpf`, `rg`, `data_nasc`, semestre, idAnoAtual, idCurso);
+        INSERT INTO aluno(`email`, `senha`, `nome`, `cpf`, `rg`, `data_nasc`, `id_sem`, `id_ano`, `id_curso`) 
+                VALUES(emailCriado, `senha`, `nome`, `cpf`, `rg`, `data_nasc`, semestre, idAnoAtual, idCurso);
     END IF;
 END$$
 
@@ -867,7 +904,7 @@ BEGIN
 END$$
 
 -- PROCEDURE cadastro de dados de um aluno
-CREATE DEFINER=`root`@`localhost` PROCEDURE sp_cadastro_dadosAlunoPorNomes (media_final FLOAT, freq_final FLOAT, nomeAluno VARCHAR(100), situacao varchar(50), nomeCurso VARCHAR(100), nomeDiscBase VARCHAR(100), nomeProf VARCHAR(100), anoLecionada int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE sp_cadastro_dadosAlunoPorNomes (nomeAluno VARCHAR(100), situacao varchar(50), nomeCurso VARCHAR(100), nomeDiscBase VARCHAR(100), nomeProf VARCHAR(100), anoLecionada int)
 BEGIN
     declare idDiscAnual int;
     DECLARE idAluno int;
@@ -894,8 +931,8 @@ BEGIN
     -- Obtendo ID de situacao
     SELECT id_sit INTO idSit FROM situacao_aluno WHERE situacao_ = situacao;
     
-   insert into dados_aluno (mediaFinal, freqFinal, id_aluno, id_sit, id_discAnual) 
-            values(media_final, freq_final, idAluno, idSit, idDiscAnual);
+   insert into dados_aluno (id_aluno, id_sit, id_discAnual) 
+            values(idAluno, idSit, idDiscAnual);
 END$$
 
 -- PROCEDURE cadastro de dados de um aluno
@@ -1225,6 +1262,14 @@ begin
         WHERE id_avisoGlobal = idAvisoGlobal;
 end$$
 
+-- PROCEDURE para ATUALIZAR avisos de disciplina
+CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarAviso (idAviso int, nomeAviso varchar(100), descricaoAviso varchar(1000))
+begin
+    UPDATE aviso 
+        SET nome = nomeAviso, descricao = descricaoAviso
+        WHERE id_aviso = idAviso;
+end$$
+
 -- PROCEDURE para ATUALIZAR avaliação
 CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarAvaliacao (idAval int, nomeAval varchar(100))
 begin
@@ -1331,6 +1376,15 @@ BEGIN
     UPDATE dados_aluno 
         SET mediaFinal = media_final, freqFinal = freq_final, id_sit = idSit 
         WHERE id_dados = idDados;
+END$$
+
+-- PROCEDURE para ATUALIZAR dados de uma aula por ID
+CREATE DEFINER=`root`@`localhost` PROCEDURE atualizarAulaPorID (idAula int, nomeDado varchar(100), descricaoDada varchar(1000))
+BEGIN
+    
+    UPDATE aula 
+        SET nome = nomeDado, descricao = descricaoDada 
+        WHERE id_aula = idAula;
 END$$
 
 -- REMOÇÕES
@@ -2253,6 +2307,9 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE deletaAulaPorID (id int)
 BEGIN
+    -- Deletando as frequências que pertencem a aula especificada
+    DELETE FROM frequencia WHERE id_aula = id;
+
     -- Deletando as notas das avalições das aulas
     DELETE n 
         FROM nota as n

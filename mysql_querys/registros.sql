@@ -64,6 +64,8 @@ insert into disciplinaBase (nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,ano
     values ('Algoritmos e Técnicas de Programação',180,70,1,1,1);
 insert into disciplinaBase (nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo)
     values ('Engenharia de Software',150,60,1,1,3);
+insert into disciplinaBase (nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo)
+    values ('Sistemas Operacionais 2',160,65,1,1,3);
 
 -- Rematrícula
 insert into rematricula (aberta, id_sem)
@@ -128,6 +130,10 @@ insert into dados_aluno (id_aluno,id_sit,id_discAnual)
     values (2,2,2);
 insert into dados_aluno (id_aluno,id_sit,id_discAnual)
     values (4,1,4);
+insert into dados_aluno (id_aluno,id_sit,id_discAnual)
+    values (5,1,4);
+insert into dados_aluno (id_aluno,id_sit,id_discAnual)
+    values (1,1,4);
 insert into dados_aluno (id_aluno,id_sit,id_discAnual)
     values (2,1,3);
 insert into dados_aluno (id_aluno,id_sit,id_discAnual)

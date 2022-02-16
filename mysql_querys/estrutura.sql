@@ -41,7 +41,7 @@ create table curso (
 
 create table aluno (
     id_aluno int not null AUTO_INCREMENT,
-    ra CHAR(6) not null UNIQUE,
+    ra CHAR(6) UNIQUE,
     email VARCHAR(100) not null UNIQUE,
     senha VARCHAR(80) not null,
     nome VARCHAR(100) not null UNIQUE,
