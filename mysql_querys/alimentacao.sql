@@ -2387,7 +2387,20 @@ BEGIN
     END IF;
 END$$
 
--- LISTAR QUANTIDADES
+-- LISTAR
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE listarContentAviso (idAviso int, grupo varchar(100), OUT assuntoSaida varchar(100), OUT descricaoSaida varchar(1000))
+BEGIN
+    DECLARE flag int DEFAULT 0;
+
+    SELECT id_curso INTO flag FROM curso WHERE nome = grupo;
+
+    IF flag = 0 THEN
+        SELECT nome, descricao INTO assuntoSaida, descricaoSaida FROM aviso WHERE id_aviso = idAviso;
+    ELSE 
+        SELECT nome, descricao INTO assuntoSaida, descricaoSaida FROM avisoGlobal WHERE id_avisoGlobal = idAviso;
+    END IF;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE listarQuantPessoas (OUT quantCursos tinyint, OUT quantDiscs tinyint, OUT quantFuncs tinyint, OUT quantAlunos tinyint)
 BEGIN

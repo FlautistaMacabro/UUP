@@ -52,6 +52,7 @@ DROP PROCEDURE IF EXISTS `deletaDiscBasePorNome`;
 DROP PROCEDURE IF EXISTS `deletaFrequeciaPorID`;
 DROP PROCEDURE IF EXISTS `deletaNotaPorID`;
 DROP PROCEDURE IF EXISTS `deletaProfPorNome`;
+DROP PROCEDURE IF EXISTS `listarContentAviso`;
 DROP PROCEDURE IF EXISTS `listarQuantPessoas`;
 DROP PROCEDURE IF EXISTS `listarQuantDiscCoord`;
 DROP PROCEDURE IF EXISTS `listarQuantDiscProf`;
