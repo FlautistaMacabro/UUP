@@ -18,7 +18,7 @@ class Aviso{
         // Header
         $header = PageBuilder::getComponent("pages/public/header", [
           'nome' => $_SESSION['usuario']['name'],
-          'cargo' => 'Aluno'
+          'cargo' => 'Aluno de <strong>'.$_SESSION['usuario']['curso'].'</strong>'
         ]);
 
         // Menu

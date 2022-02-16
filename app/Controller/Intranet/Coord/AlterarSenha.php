@@ -6,6 +6,8 @@ use App\Controller\Page\PageBuilder;
 use App\Controller\Intranet\Menu;
 use App\Controller\Page\Alert;
 use App\Model\Entity\Pessoa;
+use App\Model\Entity\DashboardCoord;
+
 
 class AlterarSenha{
     public function __construct() {}
@@ -15,10 +17,13 @@ class AlterarSenha{
     {
         //Componentes do AlterarSenha
 
+        //Nome Curso
+        $nomeCurso = (DashboardCoord::getCoordCurso($_SESSION['admin']['usuario']['name'])[0])->nomeCurso;
+
         //Header
         $header = PageBuilder::getComponent("pages/intranet/header", [
             'nome' => $_SESSION['admin']['usuario']['name'],
-            'cargo' => 'Coordenador'
+            'cargo' => 'Coordenador de <strong>'.$nomeCurso.'</strong>'
         ]);
 
         //Menu

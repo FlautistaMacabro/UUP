@@ -45,7 +45,7 @@ class Menu{
                 'link' => '/coord/discbase'
             ],
             [
-                'label' => 'Avisos',
+                'label' => 'Gerenciar Avisos Globais',
                 'link' => '/coord/avisos'
             ],
             [
