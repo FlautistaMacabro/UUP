@@ -1,0 +1,20 @@
+<div class="is-flex is-flex-direction-row" style="border: 1px solid lightgrey;">
+    <div class="is-flex is-flex-direction-row is-align-items-center" style="width: 60%;">
+      <p class="subtitle is-5 pl-5">{{item}}</p>
+    </div>
+    <div class="is-flex is-flex-direction-row is-align-items-center is-justify-content-center is-flex-wrap-wrap" style="width: 40%;">
+      <button class="button is-info m-2 js-modal-trigger btn-editar" data-target="modal-editar" style="width: 8rem;">
+        <span>Info/Editar</span>
+        <span class="icon is-small">
+          <i class="fas fa-edit"></i>
+        </span>
+      </button>
+      <button class="button is-danger m-2 js-modal-trigger btn-delete" data-target="modal-delete" style="width: 7rem;">
+        <span>Deletar</span>
+        <span class="icon is-small">
+          <i class="fas fa-times"></i>
+        </span>
+      </button>
+    </div>
+    <p style="display: none;">{{id}}</p>
+</div>

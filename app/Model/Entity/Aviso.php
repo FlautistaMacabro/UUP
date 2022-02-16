@@ -3,10 +3,13 @@
 namespace App\Model\Entity;
 
 use \PDO;
+use \PDOException;
 use App\Database\Database;
 
 class Aviso{
     public $id;
+
+    public $id_AvisoGlobal;
 
     public $remetente;
 
@@ -17,6 +20,55 @@ class Aviso{
     public $dataHora;
 
     public function __construct() {}
+
+    public static function listAvisosGlobais($limit){
+        return (new Database("AvisoGlobal"))->select(null, null, $limit,"id_AvisoGlobal, nome")->fetchAll(PDO::FETCH_CLASS,self::class);
+    }
+
+    public static function getQtdAvisosGlobais(){
+        return (new Database("AvisoGlobal"))->select(null, null, null,"COUNT(*) as qtd")->fetchObject()->qtd;
+    }
+
+    public static function cadastrarAvisoGlobal($nomeAviso,$descricaoAviso, $nome_curso, $nomeProf){
+        $query = "CALL sp_cadastro_aviso_global('{$nomeAviso}','{$descricaoAviso}','{$nome_curso}','{$nomeProf}');";
+        $database = new Database();
+        $status = $database->execute($query);
+        if($status instanceof PDOException){
+            return $status->getMessage();
+        }
+        else{
+            return true;
+        }
+    }
+
+    public static function atualizarAvisoGlobal($idAvisoGlobal, $nomeAviso,$descricaoAviso){
+        $query = "CALL atualizarAvisoGlobal({$idAvisoGlobal},'{$nomeAviso}','{$descricaoAviso}');";
+        $database = new Database();
+        $status = $database->execute($query);
+        if($status instanceof PDOException){
+            return $status->getMessage();
+        }
+        else{
+            return true;
+        }
+    }
+
+    public static function deletarAvisoGlobal($id){
+        $query = "CALL  deletaAvisoGlobalPorID({$id});";
+        $database = new Database();
+        $status = $database->execute($query);
+        if($status instanceof PDOException){
+            return $status->getMessage();
+        }
+        else{
+            return true;
+        }
+    }
+
+    public static function infoAvisoGlobal($idAviso){
+        $query = "SELECT id_avisoGlobal,nome,descricao FROM AvisoGlobal WHERE id_avisoGlobal = {$idAviso} LIMIT 1;";
+        return (new Database())->execute($query)->fetch(PDO::FETCH_ASSOC);
+    }
 
     public static function getAvisos($nomeCurso, $nomeAluno, $limit){
         $query = "SELECT av.id_aviso as 'id',pr.nome as 'remetente', db.nome as 'grupo', av.nome as 'assunto', av.dataHora as 'dataHora'

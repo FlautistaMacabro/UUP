@@ -53,8 +53,19 @@ $router->get('/coord/avisos', [
         'require-intranet-login',
         'require-coord-permission'
     ],
-    function(){
-        return new Response(200, '');
+    function($request){
+        return new Response(200, Coord\Avisos::getAvisos($request));
+    }
+]);
+
+//ROTA COORD AVISOS (POST)
+$router->post('/coord/avisos', [
+    'middlewares' => [
+        'require-intranet-login',
+        'require-coord-permission'
+    ],
+    function($request){
+        return new Response(200, Coord\Avisos::postAvisos($request));
     }
 ]);
 

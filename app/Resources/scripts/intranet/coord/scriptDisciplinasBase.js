@@ -26,7 +26,6 @@ function getData(event) {
     let nomeDisciplinaBase = ((divList.firstElementChild).firstElementChild).innerText;
 
     fillModal(nomeDisciplinaBase);
-    fillModalCoord(nomeDisciplinaBase);
 }
 
 btnEditar.forEach(button => {
