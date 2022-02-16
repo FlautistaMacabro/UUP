@@ -10,6 +10,10 @@ class Menu{
             [
                 'label' => 'Dashboard',
                 'link' => '/'
+            ],
+            [
+                'label' => 'Rematrícula',
+                'link' => '/matricula'
             ]
         ],
         'CONSULTAS' => [

@@ -35,7 +35,7 @@ class FecharRematricula{
 
             if($status == -1)
                 $status = Alert::getError('Há disciplinas diponíveis que nenhum aluno se inscreveu');
-            else $status == 0 ? $status = Alert::getError('A rematrícula já está fechada') : $status = Alert::getSuccess('A rematrícula foi fechada com sucesso');
+            else $status == 0 ? $status = Alert::getError('Não há rematrículas abertas') : $status = Alert::getSuccess('A rematrícula foi fechada com sucesso');
         }
 
         // Content
