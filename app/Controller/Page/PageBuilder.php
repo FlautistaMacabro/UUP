@@ -147,6 +147,7 @@ class PageBuilder {
             (!($i%2 == 0)) ? $itemName = '1' : $itemName = '2';
 
             $items .= PageBuilder::getComponent("pages/items/item5{$itemName}", [
+                'id' => $list[$i]->id,
                 'grupo' => $list[$i]->grupo == $_SESSION['usuario']['curso'] ? '<u>'.$list[$i]->grupo.'</u>' : $list[$i]->grupo,
                 'remetente' => $list[$i]->remetente,
                 'assunto' => $list[$i]->assunto,

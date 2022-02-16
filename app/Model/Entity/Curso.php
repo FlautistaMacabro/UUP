@@ -69,13 +69,12 @@ class Curso{
         return (new Database())->execute($query)->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function nomeCoordenadores($nomeCoord){
-        $query = "SELECT c.nome as 'nomeCurso'
-        FROM curso as c
-            INNER JOIN professor as pr
-            ON c.id_curso = pr.id_prof
-        WHERE pr.nome = '{$nomeCoord}' AND pr.id_curso IS NOT NULL
-        LIMIT 1;";
+    public static function nomeCoordenadores($nomeCurso){
+        $query = "SELECT pr.nome
+        FROM professor as pr
+            INNER JOIN curso as c
+            ON pr.id_curso = c.id_curso
+        WHERE c.nome = '{$nomeCurso}';";
         return (new Database())->execute($query)->fetchAll(PDO::FETCH_ASSOC);
     }
 

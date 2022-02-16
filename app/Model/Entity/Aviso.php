@@ -6,6 +6,8 @@ use \PDO;
 use App\Database\Database;
 
 class Aviso{
+    public $id;
+
     public $remetente;
 
     public $grupo;
@@ -17,7 +19,7 @@ class Aviso{
     public function __construct() {}
 
     public static function getAvisos($nomeCurso, $nomeAluno, $limit){
-        $query = "SELECT pr.nome as 'remetente', db.nome as 'grupo', av.nome as 'assunto', av.dataHora as 'dataHora'
+        $query = "SELECT av.id_aviso as 'id',pr.nome as 'remetente', db.nome as 'grupo', av.nome as 'assunto', av.dataHora as 'dataHora'
                 FROM disciplinaAnual as dl
                     INNER JOIN disciplinaBase as db
                     ON dl.id_discBase = db.id_discBase
@@ -33,7 +35,7 @@ class Aviso{
                     ON dl.id_discAnual = av.id_discAnual
                 WHERE c.nome = '{$nomeCurso}' AND al.nome = '{$nomeAluno}'
            UNION
-                SELECT pr.nome as 'remetente', '{$nomeCurso}' as 'grupo', ag.nome as 'assunto', ag.dataHora as 'dataHora'
+                SELECT ag.id_avisoGlobal as 'id', pr.nome as 'remetente', '{$nomeCurso}' as 'grupo', ag.nome as 'assunto', ag.dataHora as 'dataHora'
                     FROM disciplinaAnual as dl
                         INNER JOIN disciplinaBase as db
                         ON dl.id_discBase = db.id_discBase
@@ -54,7 +56,7 @@ class Aviso{
     }
 
     public static function getQtdAvisos($nomeCurso, $nomeAluno){
-        $query = "SELECT COUNT(*) as 'qtd' 
+        $query = "SELECT COUNT(*) as 'qtd'
         FROM (
         (SELECT av.dataHora as 'dataHora'
             FROM disciplinaAnual as dl
@@ -90,5 +92,12 @@ class Aviso{
             ) x;";
         $database = new Database();
         return ($database->execute($query))->fetchObject()->qtd;
+    }
+
+    public static function getAvisosInfo($idAviso, $grupo){
+        $query = "CALL listarContentAviso('{$idAviso}', '{$grupo}', @assuntoSaida, @descricaoSaida);";
+        $database = new Database();
+        $database->execute($query);
+        return (($database->execute('SELECT @assuntoSaida as assunto,@descricaoSaida as descricao'))->fetch(PDO::FETCH_ASSOC));
     }
 }

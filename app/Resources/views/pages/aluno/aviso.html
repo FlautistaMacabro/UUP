@@ -1,3 +1,27 @@
+<div id="modal-msg" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box pl-6 pr-6">
+      <h4 class="mt-5 title is-4 has-text-centered has-text-grey"> Mensagem</h4>
+      <div class="field mt-5">
+        <label class="label">Assunto:</label>
+        <div class="control mt-3">
+          <input class="input" id="assunto" name="assunto" type="text" placeholder="Assunto da mensagem" readonly >
+        </div>
+      </div>
+      <label class="label mt-3">Descrição: </label>
+      <textarea id="descricao" name="descricao" class="textarea" placeholder="Descrição da mensagem" readonly ></textarea>
+      <div class="mt-4 is-flex is-flex-direction-row is-justify-content-right is-align-items-center">
+        <button type="button" class="button mr-4 is-medium is-info close-button" aria-label="close">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
 <div class="column is-auto p-6" style="overflow-wrap: break-word;">
     <nav class="breadcrumb" aria-label="breadcrumbs">
       <ul>
@@ -27,3 +51,5 @@
         </ul>
     </nav>
 </div>
+<script src="{{URL}}/app/Resources/scripts/scriptModal.js"></script>
+<script src="{{URL}}/app/Resources/scripts/public/scriptAvisos.js"></script>
