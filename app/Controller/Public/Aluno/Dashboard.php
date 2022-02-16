@@ -18,14 +18,14 @@ class Dashboard{
         $values = (DashboardAluno::getValues($_SESSION['usuario']['name']))[0];
 
         //Header
-        $header = PageBuilder::getComponent("pages/intranet/header", [
+        $header = PageBuilder::getComponent("pages/public/header", [
           'nome' => $_SESSION['usuario']['name'],
           'cargo' => 'Aluno de <strong>'.$_SESSION['usuario']['curso'].'</strong>'
           ]);
 
 
         //Menu
-        $menu = PageBuilder::getComponent("pages/intranet/menu", [
+        $menu = PageBuilder::getComponent("pages/public/menu", [
           'items' => PageBuilder::getMenu(Menu::getAlunoMenu(), 'Dashboard')
           ]);
 
@@ -39,7 +39,7 @@ class Dashboard{
           ]);
 
         //Recebe o Template e o Imprime na Tela
-        echo PageBuilder::getTemplate('templates/intranet/template_intranet',[
+        echo PageBuilder::getTemplate('templates/public/template',[
           'title' => 'Dashboard - Aluno',
           'header' => $header,
           'menu' => $menu,
