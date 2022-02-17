@@ -20,8 +20,10 @@ DROP FUNCTION IF EXISTS `removerCargoCoord`;
 
 DROP PROCEDURE IF EXISTS `ativarDiscAnualPorAno_Prof_Disc_Curso`;
 DROP PROCEDURE IF EXISTS `atualizarAluno`;
+DROP PROCEDURE IF EXISTS `atualizarAulaPorID`;
 DROP PROCEDURE IF EXISTS `atualizarAvaliacao`;
 DROP PROCEDURE IF EXISTS `atualizarAvisoGlobal`;
+DROP PROCEDURE IF EXISTS `atualizarAviso`;
 DROP PROCEDURE IF EXISTS `atualizarCursoPorNome`;
 DROP PROCEDURE IF EXISTS `atualizarDadosAlunoPorID`;
 DROP PROCEDURE IF EXISTS `atualizarDadosAlunoPorNomes`;
@@ -76,6 +78,7 @@ DROP PROCEDURE IF EXISTS `sp_cadastro_frequenciaPorNomes`;
 DROP PROCEDURE IF EXISTS `sp_cadastro_notaPorID`;
 DROP PROCEDURE IF EXISTS `sp_cadastro_notaPorNomes`;
 DROP PROCEDURE IF EXISTS `sp_cadastro_professor`;
+DROP PROCEDURE IF EXISTS `sp_cadastro_coord`;
 DROP PROCEDURE IF EXISTS `trocarProfDiscAnualPorIDs`;
 DROP PROCEDURE IF EXISTS `trocarProfDiscAnualPorNomes`;
 DROP PROCEDURE IF EXISTS `verificaLoginAluno`;

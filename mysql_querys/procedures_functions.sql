@@ -380,16 +380,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cadastro_disciplina_base`(nome v
 quantAulasPrev int(11), nome_curso varchar(100), semestreDado int, ano_minimo int)
 BEGIN
     DECLARE idCurso int;
-    DECLARE flag int DEFAULT 0;
     select curso.id_curso into idCurso from curso where curso.nome = nome_curso;
     CASE
     WHEN idCurso IS NOT NULL THEN
-        SELECT id_curso INTO flag FROM disciplinaBase WHERE id_curso = idCurso;
-
-        IF flag = 0 THEN
-            insert into disciplinaBase(nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo) 
-            values(nome,cargaHoraria,quantAulasPrev,idCurso,semestreDado,ano_minimo);
-        END IF;
+        insert into disciplinaBase(nome,cargaHoraria,quantAulasPrev,id_curso,id_sem,anoMinimo) 
+        values(nome,cargaHoraria,quantAulasPrev,idCurso,semestreDado,ano_minimo);
     END CASE;
 END$$
 
@@ -410,8 +405,8 @@ begin
             ON db.id_curso = c.id_curso
         where db.nome = nome_disc_base AND c.nome = nomeCurso;
     if ((idProf is not null) and (idAno is not null) and (idDiscBase is not null) and (idRemat is not null)) then
-       insert into disciplinaAnual(0, ativa, id_prof, id_ano, id_discBase, id_remat) 
-            values(quantAulasDadas, 1, idProf, idAno, idDiscBase, idRemat);
+       insert into disciplinaAnual(quantAulasDadas, ativa, id_prof, id_ano, id_discBase, id_remat) 
+            values(0, 1, idProf, idAno, idDiscBase, idRemat);
     end if;
 end$$
 
@@ -425,7 +420,7 @@ begin
     SET rg = REPLACE(rg, '.', '');
     SELECT novoEmailProf(nome) INTO emailCriado;
     insert into professor(salario, cargaHoraria, email, senha, nome, cpf, rg, data_nasc) 
-        values(salario,cargaHoraria,emailCriado,senha,nome,cpf,rg,data_nasc);
+        values(salario,cargaHoraria,emailCriado,MD5(senha),nome,cpf,rg,data_nasc);
 end$$
 
 -- PROCEDURE para cadastrar coordenador
@@ -440,7 +435,7 @@ begin
     SELECT novoEmailProf(nome) INTO emailCriado;
     SELECT id_curso INTO idCurso FROM curso WHERE nome = nomeCurso;
     insert into professor(salario, cargaHoraria, email, senha, nome, cpf, rg, data_nasc, id_curso) 
-        values(salario,cargaHoraria,emailCriado,senha,nome,cpf,rg,data_nasc,idCurso);
+        values(salario,cargaHoraria,emailCriado,MD5(senha),nome,cpf,rg,data_nasc,idCurso);
 end$$
 
 -- PROCEDURE para cadastrar aluno
@@ -464,7 +459,7 @@ BEGIN
     SELECT curso.id_curso INTO idCurso FROM curso WHERE nome_curso = curso.nome;
     IF (idAnoAtual IS NOT NULL) AND (idCurso IS NOT NULL) THEN
         INSERT INTO aluno(`email`, `senha`, `nome`, `cpf`, `rg`, `data_nasc`, `id_sem`, `id_ano`, `id_curso`) 
-                VALUES(emailCriado, `senha`, `nome`, `cpf`, `rg`, `data_nasc`, semestre, idAnoAtual, idCurso);
+                VALUES(emailCriado, MD5(senha), `nome`, `cpf`, `rg`, `data_nasc`, semestre, idAnoAtual, idCurso);
     END IF;
 END$$
 
@@ -2055,7 +2050,7 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE deletaAulaPorID (id int)
 BEGIN
     -- Deletando as frequências que pertencem a aula especificada
-    DELETE frequencia WHERE id_aula = id;
+    DELETE FROM frequencia WHERE id_aula = id;
 
     -- Deletando as notas das avalições das aulas
     DELETE n 
