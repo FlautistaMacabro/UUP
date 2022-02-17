@@ -6,11 +6,11 @@ let idAviso = document.getElementById("id-delete-aviso");
 
 function insertAulaName(event) {
     let divList = ((event.currentTarget).parentNode).parentNode;
-    let nome = ((divList.children[0]).innerText);
-    let id = ((divList.children[2]).innerText);
+    let nome = ((divList.children[0]));
+    let id = ((divList.children[2]));
 
-    avisoName.innerText = nome;
-    idAviso.innerText = id;
+    avisoName.innerText = nome.innerText;
+    idAviso.value = id.innerText;
 }
 
 
@@ -42,6 +42,7 @@ function fillModalAula(idAviso){
        dataType: 'json',
        data: {class: "AvisoProf", method: "listAvisosPorID", params: Array(idAviso)},
        success:function(result){
+            $('#id-aviso-atual').val(result.id_aviso);
             $('#nome-aviso').val(result.nome);
             $('#descricao-aviso').val(result.descricao);
        }
